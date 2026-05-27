@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>භක්ති ගී සහ සජ්ඣායනා | Serenity Chants Player</title>
+  <meta name="description" content="Immerse in spiritual peace. Listen to beautiful Buddhist suttas (Karaniya Metta Sutta, Mangala Sutta) and serene bamboo flute music with real-time translations.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@500;700;800&family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sinhala: ['"Abhaya Libre"', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            spiritual: {
+              deep: '#060714',
+              violet: '#0e0c26',
+              gold: '#D4AF37',
+              amber: '#F39C12',
+              pink: '#FF8DA1',
+              glow: '#FFE89E',
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 20s linear infinite',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass-card {
+      background: rgba(14, 12, 38, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    /* Custom soundwave animation */
+    .bar {
+      width: 4px;
+      height: 15px;
+      background: #D4AF37;
+      border-radius: 2px;
+      transition: height 0.15s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-spiritual-deep text-slate-200 font-outfit overflow-x-hidden min-h-screen relative flex flex-col justify-between">
+
+  <!-- Background stars -->
+  <div id="starfield" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 w-full px-4 lg:px-8 py-4 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-spiritual-violet/40 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/30">
+      
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-spiritual-gold/10 flex items-center justify-center border border-spiritual-gold/30 group-hover:border-spiritual-gold/60 transition-all duration-300">
+          <svg class="w-6 h-6 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="font-cinzel font-bold text-lg tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-400 group-hover:to-spiritual-pink transition-all duration-300">VESAK 2026</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Home</a>
+        <a href="significance.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Significance</a>
+        <a href="lanterns.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Virtual Garden</a>
+        <a href="cards.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Card Creator</a>
+        <a href="music.html" class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-gold/20">Serenity Chants</a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-3">
+        <button id="navSoundBtn" onclick="playChimeBell()" class="p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-spiritual-gold/40 text-spiritual-gold transition-all duration-300">
+          <i data-lucide="bell" class="w-5 h-5"></i>
+        </button>
+        <a href="cards.html" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-spiritual-gold to-spiritual-amber hover:from-spiritual-amber hover:to-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-amber/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">Wish Card</a>
+      </div>
+
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-spiritual-gold hover:bg-white/5 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </nav>
+    
+    <div id="mobileMenu" class="hidden md:hidden mt-3 px-4 py-6 rounded-3xl glass-card flex flex-col gap-3 animate-fade-in z-50 relative">
+      <a href="index.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="home" class="w-5 h-5 text-spiritual-gold"></i> Home
+      </a>
+      <a href="significance.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="book-open" class="w-5 h-5 text-spiritual-gold"></i> Significance of Vesak
+      </a>
+      <a href="lanterns.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="sparkles" class="w-5 h-5 text-spiritual-gold"></i> Virtual Lantern Garden
+      </a>
+      <a href="cards.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="images" class="w-5 h-5 text-spiritual-gold"></i> Create Greeting Cards
+      </a>
+      <a href="music.html" class="px-4 py-3 rounded-xl bg-spiritual-gold text-spiritual-deep font-bold text-center">Serenity Audio Chants</a>
+    </div>
+  </header>
+
+  <!-- MUSIC PLAYER MAIN INTERACTION AREA -->
+  <main class="w-full flex-grow z-10 px-4 lg:px-8 py-8 max-w-7xl mx-auto flex flex-col justify-center">
+    
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h1 class="font-cinzel text-xs tracking-widest text-spiritual-gold uppercase mb-2">Serene Buddhist Audios</h1>
+      <h2 class="font-sinhala font-extrabold text-3xl sm:text-4xl text-white text-glow-gold">ධර්ම සජ්ඣායනා සහ ශාන්ත තනු</h2>
+      <p class="text-xs text-slate-400 mt-2 font-outfit">Immerse yourself in deep relaxation, invoke spiritual healing, and explore word-by-word Sinhala & English translations of pristine ancient Buddhist protection chants.</p>
+    </div>
+
+    <!-- MAIN TWO COLUMN PANEL -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-6">
+      
+      <!-- LEFT COLUMN: DIGITAL MEDIA PLAYER CONTROLLER -->
+      <div class="lg:col-span-5 w-full glass-card p-6 rounded-3xl border border-spiritual-gold/20 shadow-2xl relative flex flex-col gap-6 z-20 overflow-hidden">
+        
+        <!-- Subtle back glow -->
+        <div class="absolute -bottom-16 -left-16 w-32 h-32 rounded-full bg-spiritual-gold/5 blur-2xl pointer-events-none"></div>
+
+        <!-- HTML5 Hidden Audio Tag -->
+        <audio id="audioEngine" src="" preload="auto"></audio>
+
+        <!-- Player cover visual -->
+        <div class="relative w-full aspect-square max-w-[280px] mx-auto rounded-3xl overflow-hidden border border-spiritual-gold/25 p-2 bg-spiritual-deep shadow-lg flex items-center justify-center">
+          <div class="absolute w-[80%] aspect-square rounded-full border border-spiritual-gold/10 animate-spin-slow"></div>
+          
+          <!-- Track Logo/Graphic -->
+          <div class="z-10 text-center flex flex-col items-center">
+            <div id="playerLotusGlow" class="w-16 h-16 rounded-full bg-spiritual-gold/10 border border-spiritual-gold/30 flex items-center justify-center text-spiritual-gold animate-pulse mb-3">
+              <i data-lucide="flower-2" class="w-9 h-9"></i>
+            </div>
+            <h3 id="trackTitleDisplay" class="font-sinhala font-bold text-lg text-white">Karaniya Metta Sutta</h3>
+            <p id="trackArtistDisplay" class="text-[11px] text-slate-400 font-cinzel tracking-wider mt-0.5">Buddhist Protection Chants</p>
+          </div>
+        </div>
+
+        <!-- Real-time dynamic Soundwave Visualizer -->
+        <div class="w-full flex items-center justify-center gap-1.5 h-12 border-y border-white/5">
+          <div class="bar h-3" id="b1"></div><div class="bar h-6" id="b2"></div>
+          <div class="bar h-8" id="b3"></div><div class="bar h-4" id="b4"></div>
+          <div class="bar h-7" id="b5"></div><div class="bar h-3" id="b6"></div>
+          <div class="bar h-9" id="b7"></div><div class="bar h-5" id="b8"></div>
+          <div class="bar h-3" id="b9"></div><div class="bar h-7" id="b10"></div>
+        </div>
+
+        <!-- Slider Progress Bar -->
+        <div class="flex flex-col gap-1.5">
+          <div class="relative w-full h-1 bg-white/10 rounded-full cursor-pointer overflow-hidden" id="progressBar" onclick="seekAudio(event)">
+            <div class="absolute top-0 left-0 h-full bg-spiritual-gold transition-all duration-100" id="progressFill" style="width: 0%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[10px] text-slate-400 font-medium">
+            <span id="currentTimeDisplay">0:00</span>
+            <span id="totalTimeDisplay">0:00</span>
+          </div>
+        </div>
+
+        <!-- Audio Player Core Action Buttons -->
+        <div class="flex items-center justify-center gap-6">
+          
+          <!-- Prev Track -->
+          <button onclick="prevTrack()" class="p-3 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 text-slate-400 hover:text-white transition-all duration-300">
+            <i data-lucide="skip-back" class="w-5 h-5"></i>
+          </button>
+
+          <!-- Play/Pause main button -->
+          <button onclick="togglePlayback()" id="playPauseBtn" class="w-16 h-16 rounded-full bg-spiritual-gold text-spiritual-deep shadow-lg shadow-spiritual-gold/25 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300">
+            <i data-lucide="play" class="w-7 h-7 text-spiritual-deep fill-spiritual-deep ml-1" id="playIcon"></i>
+          </button>
+
+          <!-- Next Track -->
+          <button onclick="nextTrack()" class="p-3 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10 text-slate-400 hover:text-white transition-all duration-300">
+            <i data-lucide="skip-forward" class="w-5 h-5"></i>
+          </button>
+
+        </div>
+
+        <!-- Volume and audio quality controls -->
+        <div class="flex items-center justify-between gap-4 px-2 border-t border-white/5 pt-4">
+          <div class="flex items-center gap-2">
+            <i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i>
+            <input type="range" id="volumeControl" min="0" max="1" step="0.05" value="0.8" oninput="changeVolume()" class="w-20 sm:w-24 h-1 accent-spiritual-gold rounded-full cursor-pointer bg-white/10">
+          </div>
+          
+          <span class="text-[10px] text-slate-500 font-bold tracking-wider font-cinzel">Streaming HD</span>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: DETAILED SONG LIST & LYRICS PANELS -->
+      <div class="lg:col-span-7 w-full flex flex-col gap-6 z-10">
+        
+        <!-- Track List Selector -->
+        <div class="glass-card p-6 rounded-3xl border border-white/5 flex flex-col gap-3">
+          <h3 class="font-cinzel text-xs font-bold tracking-widest text-spiritual-gold uppercase">Chant Playlist</h3>
+          
+          <div class="flex flex-col gap-2.5 mt-2">
+            
+            <!-- Track 1 Button -->
+            <button onclick="selectTrack(0)" id="playlistBtn-0" class="flex items-center justify-between p-3.5 rounded-2xl border bg-spiritual-gold/10 border-spiritual-gold text-left transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-spiritual-gold/20 flex items-center justify-center text-spiritual-gold">
+                  <i data-lucide="music" class="w-4.5 h-4.5"></i>
+                </div>
+                <div>
+                  <h4 class="font-sinhala font-bold text-sm text-white">කරණීය මෙත්ත සූත්‍රය</h4>
+                  <p class="text-[10px] text-slate-400 font-outfit mt-0.5">Karaniya Metta Sutta — Discourse on Loving-Kindness</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-semibold text-spiritual-gold tracking-widest font-cinzel">4:34</span>
+            </button>
+
+            <!-- Track 2 Button -->
+            <button onclick="selectTrack(1)" id="playlistBtn-1" class="flex items-center justify-between p-3.5 rounded-2xl border bg-white/5 border-white/10 hover:border-spiritual-gold/40 text-left transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-slate-400">
+                  <i data-lucide="music" class="w-4.5 h-4.5"></i>
+                </div>
+                <div>
+                  <h4 class="font-sinhala font-bold text-sm text-white">මහා මංගල සූත්‍රය</h4>
+                  <p class="text-[10px] text-slate-400 font-outfit mt-0.5">Maha Mangala Sutta — Great Discourse on Blessings</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-semibold text-slate-500 tracking-widest font-cinzel">5:12</span>
+            </button>
+
+            <!-- Track 3 Button -->
+            <button onclick="selectTrack(2)" id="playlistBtn-2" class="flex items-center justify-between p-3.5 rounded-2xl border bg-white/5 border-white/10 hover:border-spiritual-gold/40 text-left transition-all duration-300">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-slate-400">
+                  <i data-lucide="waves" class="w-4.5 h-4.5"></i>
+                </div>
+                <div>
+                  <h4 class="font-sinhala font-bold text-sm text-white">පූජනීය බණ දහම් සහ වෙසක් භක්ති ගී තනු</h4>
+                  <p class="text-[10px] text-slate-400 font-outfit mt-0.5">Serenity Flute Ambient — Peaceful Instrumental</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-semibold text-slate-500 tracking-widest font-cinzel">3:55</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Lyrics & Meaning Viewer -->
+        <div class="glass-card p-6 rounded-3xl border border-white/5 flex flex-col gap-4">
+          <div class="flex items-center justify-between border-b border-white/10 pb-3">
+            <h3 class="font-sinhala font-bold text-base text-white">ශ්‍රී සද්ධර්මයේ අර්ථය — Translation & Meaning</h3>
+            <span class="text-[9px] font-bold text-spiritual-gold bg-spiritual-gold/10 px-2 py-0.5 rounded border border-spiritual-gold/20 font-cinzel uppercase">Authentic Text</span>
+          </div>
+
+          <!-- Live Dynamic Text Scroller Container -->
+          <div class="h-64 overflow-y-auto pr-2 space-y-5 text-sm leading-relaxed" id="lyricsScroller">
+            <!-- Content will be dynamically populated by JS based on track -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-spiritual-deep/80 backdrop-blur-md border-t border-white/10 py-12 px-6 lg:px-12 z-20 text-slate-400 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="flex flex-col gap-4 text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <svg class="w-7 h-7 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+          <span class="font-cinzel font-bold text-base tracking-widest text-white">VESAK CELEBRATIONS 2026</span>
+        </div>
+        <p class="font-sinhala text-sm leading-relaxed text-slate-400 max-w-sm mx-auto md:mx-0">
+          ත්‍රිවිධ මංගල්‍යයේ උදාර පණිවිඩය මුළු විශ්වය පුරාම සාමය, කරුණාව සහ දයාව පතුරුවา හරීවා! ඔබ සැමට ධර්මයේ සිසිලස පිරුණු වෙසක් මංගල්‍යයක් වේවා.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-center gap-4">
+        <h4 class="font-cinzel text-xs font-bold tracking-widest text-white uppercase">Menu Links</h4>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-xs">
+          <a href="index.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Home</a>
+          <a href="significance.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Significance</a>
+          <a href="lanterns.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Lantern Garden</a>
+          <a href="cards.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Card Studio</a>
+          <a href="music.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Devotional Chants</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 items-center md:items-end text-center md:text-right justify-center">
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400">Purely coded with devotion for the community</span>
+          <div class="w-8 h-8 rounded-full bg-spiritual-pink/10 border border-spiritual-pink/30 flex items-center justify-center text-spiritual-pink animate-pulse">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500 font-light mt-1">
+          Designed using Tailwind HTML5 & JS. All rights reserved &copy; 2026 Vesak Festival.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT FOR SERENITY PLAYER CONTROL -->
+  <script>
+    lucide.createIcons();
+
+    // Toggle Mobile Navigation Drawer
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Starfield Generator
+    function generateStars() {
+      const starfield = document.getElementById('starfield');
+      const count = window.innerWidth < 768 ? 40 : 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animation = `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starfield.appendChild(star);
+      }
+    }
+    window.addEventListener('load', generateStars);
+
+    // Audio click engine failover chime
+    let chimeBellCtx = null;
+    function playChimeBell() {
+      if (!chimeBellCtx) {
+        chimeBellCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (chimeBellCtx.state === 'suspended') {
+        chimeBellCtx.resume();
+      }
+      const now = chimeBellCtx.currentTime;
+      const osc = chimeBellCtx.createOscillator();
+      const gainNode = chimeBellCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, now); // C5
+      gainNode.gain.setValueAtTime(0.06, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 1.2);
+      osc.connect(gainNode);
+      gainNode.connect(chimeBellCtx.destination);
+      osc.start();
+      osc.stop(now + 1.3);
+    }
+
+    // AUDIO PLAYLIST STORAGE
+    // Using highly reliable public direct stream MP3 tracks with failovers
+    const trackList = [
+      {
+        title: "Karaniya Metta Sutta",
+        sinhalaTitle: "කරණීය මෙත්ත සූත්‍රය",
+        artist: "Pristine Chants of Metta",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3", // fallbacks
+        duration: "4:34",
+        lyrics: `
+          <div class="flex flex-col gap-2.5">
+            <span class="text-xs font-bold text-spiritual-gold uppercase font-cinzel">Pali Chant (Stanza 1)</span>
+            <p class="font-medium text-white italic">"Karaniyamattha kusalena, yantam santam padam abhisamecca..."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-sinhala mt-1">Sinhala Meaning</span>
+            <p class="text-xs text-slate-300 font-sinhala leading-normal">"යම් කෙනෙක් මෙලොව පරලොව යහපත හා ශාන්ත නිර්වාණ පදය ප්‍රාර්ථනා කරන්නේද, ඔහු දක්ෂයෙක්, ඍජු කෙනෙක්, අවංක කෙනෙක් සහ මෘදු ගති ඇති කෙනෙක් විය යුතුය."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-cinzel mt-1">English Meaning</span>
+            <p class="text-[11px] text-slate-400 leading-normal">"He who is skilled in his good and who wishes to attain that state of peace (Nirvana) should act thus: He should be able, upright, perfectly upright, obedient, gentle, and humble."</p>
+          </div>
+          <div class="h-[1px] bg-white/5 my-3"></div>
+          <div class="flex flex-col gap-2.5">
+            <span class="text-xs font-bold text-spiritual-gold uppercase font-cinzel">Pali Chant (Stanza 2)</span>
+            <p class="font-medium text-white italic">"Santussako ca subharo ca, appakicco ca sallahukavutti..."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-sinhala mt-1">Sinhala Meaning</span>
+            <p class="text-xs text-slate-300 font-sinhala leading-normal">"ලද දෙයින් සතුටු වන, පහසුවෙන් පෝෂණය කළ හැකි, කාර්ය බහුල නොවන, සැහැල්ලු දිවිපැවැත්මක් ඇති පුද්ගලයෙක් විය යුතුය."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-cinzel mt-1">English Meaning</span>
+            <p class="text-[11px] text-slate-400 leading-normal">"Contented, easily supported, with few duties, of light livelihood, with senses controlled, discreet, not impudent, not greedily attached to families."</p>
+          </div>
+          <div class="h-[1px] bg-white/5 my-3"></div>
+          <div class="flex flex-col gap-2.5">
+            <span class="text-xs font-bold text-spiritual-gold uppercase font-cinzel">Pali Chant (Stanza 3)</span>
+            <p class="font-medium text-white italic">"Mata yatha niyam puttam, ayusa ekaputtamanurakkhe..."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-sinhala mt-1">Sinhala Meaning</span>
+            <p class="text-xs text-slate-300 font-sinhala leading-normal">"මවක් තම එකම පුතු ජීවිතයෙන් මෙන් ආරක්ෂා කරන්නා සේ, සියලු සත්වයින් කෙරෙහි අප්‍රමාණ මෙත් සිත පැතිරවිය යුතුය."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-cinzel mt-1">English Meaning</span>
+            <p class="text-[11px] text-slate-400 leading-normal">"Just as a mother would protect her only child with her life, even so, let him cultivate a boundless heart towards all living beings."</p>
+          </div>
+        `
+      },
+      {
+        title: "Maha Mangala Sutta",
+        sinhalaTitle: "මහා මංගල සූත්‍රය",
+        artist: "Theravada Chants of Blessings",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        duration: "5:12",
+        lyrics: `
+          <div class="flex flex-col gap-2.5">
+            <span class="text-xs font-bold text-spiritual-gold uppercase font-cinzel">Pali Chant (Stanza 1)</span>
+            <p class="font-medium text-white italic">"Asevana ca balanam, panditanan ca sevana, puja ca pujaniyanam, etam mangalamuttamam..."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-sinhala mt-1">Sinhala Meaning</span>
+            <p class="text-xs text-slate-300 font-sinhala leading-normal">"අඥානයන් ඇසුරු නොකිරීමද, බුද්ධිමත් පණ්ඩිතයන් ඇසුරු කිරීමද, පිදිය යුත්තන් පිදීමද යන කරුණු උතුම්ම මංගල්‍යයන් වේ."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-cinzel mt-1">English Meaning</span>
+            <p class="text-[11px] text-slate-400 leading-normal">"Not associating with fools, associating with the wise, and honoring those worthy of honor: this is the greatest blessing."</p>
+          </div>
+          <div class="h-[1px] bg-white/5 my-3"></div>
+          <div class="flex flex-col gap-2.5">
+            <span class="text-xs font-bold text-spiritual-gold uppercase font-cinzel">Pali Chant (Stanza 2)</span>
+            <p class="font-medium text-white italic">"Patirupadesavaso ca, pubbe ca katapunnata, attasamma pranidhi ca, etam mangalamuttamam..."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-sinhala mt-1">Sinhala Meaning</span>
+            <p class="text-xs text-slate-300 font-sinhala leading-normal">"සුදුසු පරිසරයක වාසය කිරීමද, පෙර කල කරන ලද පින් ඇති බවද, සිත යහපත් මගෙහි පිහිටුවීමද උතුම්ම මංගල්‍යයන් වේ."</p>
+            <span class="text-xs font-bold text-slate-400 uppercase font-cinzel mt-1">English Meaning</span>
+            <p class="text-[11px] text-slate-400 leading-normal">"Living in a suitable locality, having done meritorious deeds in the past, and setting oneself in the right path: this is the greatest blessing."</p>
+          </div>
+        `
+      },
+      {
+        title: "Serenity Flute Ambient",
+        sinhalaTitle: "භක්ති ආධ්‍යාත්මික තනු",
+        artist: "Spiritual Bamboo Flute Solo",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        duration: "3:55",
+        lyrics: `
+          <div class="text-center py-8">
+            <i data-lucide="wind" class="w-12 h-12 text-spiritual-gold/40 mx-auto mb-4 animate-bounce"></i>
+            <span class="font-sinhala font-bold text-lg text-white block mb-2">ශාන්ත බටනලා සංගීතය</span>
+            <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+              This ambient bamboo flute melody is purely instrumental. Close your eyes, coordinate your inhalation and exhalation, and allow your mind to achieve absolute calm, relaxation, and peaceful absorption.
+            </p>
+          </div>
+        `
+      }
+    ];
+
+    let currentTrackIdx = 0;
+    let isPlaying = false;
+    let visualizerTimer = null;
+
+    const audio = document.getElementById('audioEngine');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+    const totalTimeDisplay = document.getElementById('totalTimeDisplay');
+    const volumeControl = document.getElementById('volumeControl');
+
+    // Load selected track
+    function selectTrack(index) {
+      // Clear active states in playlist
+      document.getElementById(`playlistBtn-${currentTrackIdx}`).className = "flex items-center justify-between p-3.5 rounded-2xl border bg-white/5 border-white/10 hover:border-spiritual-gold/40 text-left transition-all duration-300";
+      document.getElementById(`playlistBtn-${currentTrackIdx}`).querySelector('.w-9').className = "w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-slate-400";
+      
+      currentTrackIdx = index;
+      const track = trackList[index];
+
+      // Load into audio engine
+      audio.src = track.src;
+      audio.load();
+
+      // Update UI Text
+      document.getElementById('trackTitleDisplay').innerHTML = track.title;
+      document.getElementById('trackArtistDisplay').innerHTML = track.artist;
+      document.getElementById('lyricsScroller').innerHTML = track.lyrics;
+
+      // Update Active state in Playlist
+      document.getElementById(`playlistBtn-${index}`).className = "flex items-center justify-between p-3.5 rounded-2xl border bg-spiritual-gold/10 border-spiritual-gold text-left transition-all duration-300";
+      document.getElementById(`playlistBtn-${index}`).querySelector('.w-9').className = "w-9 h-9 rounded-xl bg-spiritual-gold/20 flex items-center justify-center text-spiritual-gold";
+
+      // Reset Seekbar
+      progressFill.style.width = '0%';
+      currentTimeDisplay.innerHTML = '0:00';
+      totalTimeDisplay.innerHTML = track.duration;
+
+      // Re-initialize icons inside lyrics if any
+      lucide.createIcons();
+
+      if (isPlaying) {
+        audio.play().catch(err => {
+          console.log("Audio play blocked by browser sandbox policy.", err);
+        });
+      }
+      playChimeBell();
+    }
+
+    // Play/Pause Playback Toggle
+    function togglePlayback() {
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        playIcon.setAttribute('data-lucide', 'play');
+        playIcon.classList.add('ml-1');
+        lucide.createIcons();
+        stopSoundwave();
+      } else {
+        // Init browser Audio context
+        if (chimeBellCtx && chimeBellCtx.state === 'suspended') {
+          chimeBellCtx.resume();
+        }
+        
+        audio.play().then(() => {
+          isPlaying = true;
+          playIcon.setAttribute('data-lucide', 'pause');
+          playIcon.classList.remove('ml-1');
+          lucide.createIcons();
+          startSoundwave();
+        }).catch(err => {
+          console.log("Play failed: Interaction required first.", err);
+          // Force state update to let user retry
+          isPlaying = true;
+          playIcon.setAttribute('data-lucide', 'pause');
+          playIcon.classList.remove('ml-1');
+          lucide.createIcons();
+          startSoundwave();
+        });
+      }
+    }
+
+    function prevTrack() {
+      let nextIndex = currentTrackIdx - 1;
+      if (nextIndex < 0) nextIndex = trackList.length - 1;
+      selectTrack(nextIndex);
+    }
+
+    function nextTrack() {
+      let nextIndex = currentTrackIdx + 1;
+      if (nextIndex >= trackList.length) nextIndex = 0;
+      selectTrack(nextIndex);
+    }
+
+    // Time Update & Seek Controls
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressFill.style.width = `${percent}%`;
+        
+        // Format times
+        currentTimeDisplay.innerHTML = formatTime(audio.currentTime);
+        totalTimeDisplay.innerHTML = formatTime(audio.duration);
+      }
+    });
+
+    audio.addEventListener('ended', () => {
+      nextTrack();
+    });
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    function seekAudio(event) {
+      const progressBar = document.getElementById('progressBar');
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const width = rect.width;
+      const ratio = clickX / width;
+      
+      if (audio.duration) {
+        audio.currentTime = ratio * audio.duration;
+      }
+    }
+
+    function changeVolume() {
+      audio.volume = volumeControl.value;
+    }
+
+    // Simulated soundwave visualizer animation
+    function startSoundwave() {
+      if (visualizerTimer) clearInterval(visualizerTimer);
+      
+      visualizerTimer = setInterval(() => {
+        for (let i = 1; i <= 10; i++) {
+          const bar = document.getElementById(`b${i}`);
+          if (bar) {
+            // Generate random heights matching beat feel
+            const randHeight = Math.floor(Math.random() * 32) + 8;
+            bar.style.height = `${randHeight}px`;
+          }
+        }
+      }, 150);
+    }
+
+    function stopSoundwave() {
+      if (visualizerTimer) {
+        clearInterval(visualizerTimer);
+        visualizerTimer = null;
+      }
+      // Reset heights to flat baseline
+      for (let i = 1; i <= 10; i++) {
+        const bar = document.getElementById(`b${i}`);
+        if (bar) bar.style.height = '15px';
+      }
+    }
+
+    // Start with first track
+    window.addEventListener('load', () => {
+      selectTrack(0);
+      audio.volume = 0.8;
+    });
+  </script>
+</body>
+</html>

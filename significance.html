@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ත්‍රිවිධ මංගල්‍යය | The Significance of Vesak</title>
+  <meta name="description" content="Explore the deep spiritual legacy of Vesak: The Birth, Supreme Enlightenment, and Parinirvana of Gautama Buddha. Undergo a journey through Buddhist teachings.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@500;700;800&family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sinhala: ['"Abhaya Libre"', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            spiritual: {
+              deep: '#070814',
+              violet: '#131130',
+              gold: '#D4AF37',
+              amber: '#F39C12',
+              pink: '#FF8DA1',
+              glow: '#FFE89E',
+            }
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
+            'star-twinkle': 'twinkle 4s ease-in-out infinite',
+            'spin-slow': 'spin 20s linear infinite',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)); }
+      50% { filter: drop-shadow(0 0 20px rgba(243, 156, 18, 0.8)); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    .text-glow-gold {
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(243, 156, 18, 0.3);
+    }
+    .glass-card {
+      background: rgba(19, 17, 48, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 25px rgba(243, 156, 18, 0.15);
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+    .timeline-dot::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #D4AF37;
+      border: 4px solid #070814;
+      border-radius: 50%;
+      top: 5px;
+      left: -8px;
+      box-shadow: 0 0 10px #D4AF37;
+    }
+  </style>
+</head>
+<body class="bg-spiritual-deep text-slate-200 font-outfit overflow-x-hidden min-h-screen relative flex flex-col justify-between">
+
+  <!-- Background elements -->
+  <div id="starfield" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 w-full px-4 lg:px-8 py-4 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-spiritual-violet/40 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/30">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-spiritual-gold/10 flex items-center justify-center border border-spiritual-gold/30 group-hover:border-spiritual-gold/60 transition-all duration-300">
+          <svg class="w-6 h-6 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="font-cinzel font-bold text-lg tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-400 group-hover:to-spiritual-pink transition-all duration-300">VESAK 2026</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Home</a>
+        <a href="significance.html" class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-gold/20">Significance</a>
+        <a href="lanterns.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Virtual Garden</a>
+        <a href="cards.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Card Creator</a>
+        <a href="music.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Serenity Chants</a>
+      </div>
+
+      <!-- Action Button / Sound Toggle -->
+      <div class="hidden md:flex items-center gap-3">
+        <button id="soundToggle" onclick="playTempleBowl()" class="p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-spiritual-gold/40 text-spiritual-gold transition-all duration-300" title="Play Healing Temple Bowl Sound">
+          <i data-lucide="bell-ring" class="w-5 h-5"></i>
+        </button>
+        <a href="cards.html" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-spiritual-gold to-spiritual-amber hover:from-spiritual-amber hover:to-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-amber/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">Wish Card</a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-spiritual-gold hover:bg-white/5 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </nav>
+    
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden mt-3 px-4 py-6 rounded-3xl glass-card flex flex-col gap-3 animate-fade-in z-50 relative">
+      <a href="index.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="home" class="w-5 h-5 text-spiritual-gold"></i> Home
+      </a>
+      <a href="significance.html" class="px-4 py-3 rounded-xl bg-spiritual-gold text-spiritual-deep font-bold text-center">Significance of Vesak</a>
+      <a href="lanterns.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="sparkles" class="w-5 h-5 text-spiritual-gold"></i> Virtual Lantern Garden
+      </a>
+      <a href="cards.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="images" class="w-5 h-5 text-spiritual-gold"></i> Create Greeting Cards
+      </a>
+      <a href="music.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="music" class="w-5 h-5 text-spiritual-gold"></i> Serenity Audio Chants
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN SIGNIFICANCE NARRATIVE -->
+  <main class="w-full flex-grow z-10 px-4 lg:px-8 py-8 max-w-7xl mx-auto">
+    
+    <!-- Header Hero -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h1 class="font-cinzel text-xs tracking-widest text-spiritual-gold uppercase mb-3">The Noble Threefold Events</h1>
+      <h2 class="font-sinhala font-extrabold text-4xl sm:text-5xl text-white leading-tight text-glow-gold">ත්‍රිවිධ මංගල්‍යය</h2>
+      <p class="font-outfit font-light text-slate-400 mt-4 text-base md:text-lg leading-relaxed">
+        Vesak is the most sacred festival in the Buddhist calendar, observing three major milestones in the life of Gautama Buddha. These milestones represent the foundational pillars of peace, mindfulness, and enlightenment.
+      </p>
+      <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-spiritual-gold to-transparent mx-auto mt-6"></div>
+    </div>
+
+    <!-- TABS NAVIGATION -->
+    <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-12">
+      <button onclick="switchTab('birth')" id="tabBtn-birth" class="px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md shadow-emerald-500/5 bg-emerald-500/10 border-emerald-500/40 text-emerald-400">
+        <i data-lucide="sprout" class="w-4 h-4"></i>
+        <span>The Birth (Lumbini)</span>
+      </button>
+      <button onclick="switchTab('enlightenment')" id="tabBtn-enlightenment" class="px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md hover:bg-spiritual-gold/20 hover:border-spiritual-gold border-white/10 text-slate-300">
+        <i data-lucide="sun" class="w-4 h-4"></i>
+        <span>The Enlightenment (Bodh Gaya)</span>
+      </button>
+      <button onclick="switchTab('parinirvana')" id="tabBtn-parinirvana" class="px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md hover:bg-orange-500/20 hover:border-orange-500 border-white/10 text-slate-300">
+        <i data-lucide="compass" class="w-4 h-4"></i>
+        <span>The Parinirvana (Kushinagar)</span>
+      </button>
+    </div>
+
+    <!-- TABS CONTAINER -->
+    <div class="relative w-full mb-16">
+      
+      <!-- TAB 1: BIRTH -->
+      <div id="tab-birth" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center transition-all duration-500">
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 self-start text-xs font-semibold uppercase tracking-wider">
+            Lumbini Park (Nepal)
+          </div>
+          <h3 class="font-sinhala font-extrabold text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-emerald-500">
+            සිද්ධාර්ථ කුමාරෝත්පත්තිය — The Sacred Birth
+          </h3>
+          <p class="font-outfit text-slate-300 leading-relaxed">
+            In the ancient gardens of Lumbini, under the shade of an ashoka tree, Prince Siddhartha Gautama was born to King Suddhodana and Queen Mahamaya on a Vesak Full Moon Day. According to Buddhist scriptures, immediately after birth, the prince stood up, took seven steps to the north, and lotus flowers blossomed under each step. 
+          </p>
+          <p class="font-outfit text-slate-400 text-sm leading-relaxed border-l-2 border-emerald-400/30 pl-4 py-1">
+            His birth marked the arrival of a divine wisdom destined to conquer all mental suffering and direct humanity along a pathway of perfect compassion (Karuna) and mindfulness (Sati).
+          </p>
+          <div class="flex items-center gap-3 mt-4 text-emerald-400 text-xs font-bold font-cinzel">
+            <i data-lucide="check" class="w-4 h-4"></i> Symbolizes: Growth, Beginnings, Purity, Unbounded Potential
+          </div>
+        </div>
+        
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full aspect-video rounded-3xl overflow-hidden border border-emerald-500/30 p-2 bg-emerald-950/20 shadow-2xl shadow-emerald-950/20">
+            <!-- Custom styled Pure CSS/SVG graphics depicting fresh botanical spring/nature for birth -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-emerald-950/60 to-slate-900 flex items-center justify-center p-4">
+              <svg class="w-40 h-40 text-emerald-500/30 animate-pulse" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 15 C45 35 20 40 20 50 C20 65 35 80 50 85 C65 80 80 65 80 50 C80 40 55 35 50 15 Z"/>
+                <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent">
+                <span class="font-sinhala text-lg font-bold text-white">ලුම්බිණි සල් උයන</span>
+                <span class="text-xs text-slate-400">The Spring Gardens of Lumbini</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: ENLIGHTENMENT (ACTIVE DEFAULT HIDDEN VISUALLY FIRST VIA JS SWITCH BUT RENDERED CORRECTLY) -->
+      <div id="tab-enlightenment" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center transition-all duration-500">
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-spiritual-gold/10 border border-spiritual-gold/20 text-spiritual-gold self-start text-xs font-semibold uppercase tracking-wider">
+            Bodh Gaya (India)
+          </div>
+          <h3 class="font-sinhala font-extrabold text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-400">
+            බුදුරජාණන් වහන්සේගේ සම්බුද්ධත්වය — The Supreme Enlightenment
+          </h3>
+          <p class="font-outfit text-slate-300 leading-relaxed">
+            At the age of 35, sitting under the historic Bodhi Tree in Bodh Gaya, Prince Siddhartha sat in deep, unwavering meditation, vowing not to rise until he uncovered the absolute truth of existence. On the Vesak Full Moon night, after defeating the mental illusions of Mara, his mind broke through all layers of ignorance and reached **Nirvana** — becoming the **Buddha** (The Awakened One).
+          </p>
+          <p class="font-outfit text-slate-400 text-sm leading-relaxed border-l-2 border-spiritual-gold/30 pl-4 py-1">
+            Through Enlightenment, he discovered the **Four Noble Truths** (Cattari Ariyasaccani) and formulated the **Eightfold Path**, establishing a universal scientific approach to mental freedom, kindness, and detachment.
+          </p>
+          <div class="flex items-center gap-3 mt-4 text-spiritual-gold text-xs font-bold font-cinzel">
+            <i data-lucide="check" class="w-4 h-4"></i> Symbolizes: Supreme Wisdom, Freedom, Inner Peace, Liberation
+          </div>
+        </div>
+        
+        <!-- Enlightenment image container: Using our generated buddha.png! -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-[360px] aspect-square rounded-[2rem] overflow-hidden border border-spiritual-gold/30 shadow-2xl p-2 bg-white/5">
+            <img src="assets/buddha.png" alt="Gautama Buddha meditating under the Bodhi tree" class="w-full h-full object-cover rounded-[1.8rem]">
+            <div class="absolute bottom-6 left-6 right-6 z-10 px-4 py-2 rounded-xl bg-spiritual-deep/80 border border-spiritual-gold/20 text-center">
+              <span class="font-sinhala text-xs font-bold text-spiritual-gold tracking-wider">බුද්ධගයාව - ශ්‍රී මහා බෝධීන් වහන්සේ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: PARINIRVANA -->
+      <div id="tab-parinirvana" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center transition-all duration-500">
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 self-start text-xs font-semibold uppercase tracking-wider">
+            Kushinagar (India)
+          </div>
+          <h3 class="font-sinhala font-extrabold text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-orange-500">
+            බුදුරජාණන් වහන්සේගේ මහා පරිනිර්වාණය — The Parinirvana
+          </h3>
+          <p class="font-outfit text-slate-300 leading-relaxed">
+            At the age of 80, after traveling and preaching the Dhamma for 45 years to liberate millions of beings, the Buddha passed away in Kushinagar between two Sal trees, entering the state of Mahaparinirvana (final transcendence, completely free from the cycle of rebirth).
+          </p>
+          <p class="font-outfit text-slate-400 text-sm leading-relaxed border-l-2 border-orange-400/30 pl-4 py-1">
+            His final instructions to his disciples were full of wisdom: *"All conditioned things are subject to decay. Strive for your own salvation with diligence (Vayadhamma sankhara appamadena sampadetha)."*
+          </p>
+          <div class="flex items-center gap-3 mt-4 text-orange-400 text-xs font-bold font-cinzel">
+            <i data-lucide="check" class="w-4 h-4"></i> Symbolizes: Impermanence, Detachment, Transcendent Peace
+          </div>
+        </div>
+        
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full aspect-video rounded-3xl overflow-hidden border border-orange-500/30 p-2 bg-orange-950/20 shadow-2xl shadow-orange-950/20">
+            <div class="absolute inset-0 bg-gradient-to-tr from-orange-950/60 to-slate-900 flex items-center justify-center p-4">
+              <svg class="w-40 h-40 text-orange-500/20" viewBox="0 0 100 100" fill="currentColor">
+                <rect x="20" y="45" width="60" height="15" rx="5" />
+                <path d="M30 45 L50 25 L70 45 Z" />
+              </svg>
+              <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent">
+                <span class="font-sinhala text-lg font-bold text-white">උපවත්තන සල් උයන</span>
+                <span class="text-xs text-slate-400">The Peaceful Passing at Kushinagar</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CORE DHAMMA SECTION: NOBLE EIGHTFOLD PATH -->
+    <section class="py-12 my-12 border-t border-white/10">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="font-cinzel text-xs tracking-widest text-spiritual-gold uppercase mb-2">The Golden Guide to Mindfulness</h2>
+        <h3 class="font-sinhala font-bold text-3xl text-white">අරි අෂ්ටාංගික මාර්ගය</h3>
+        <p class="text-xs text-slate-400 mt-2 font-outfit">The Noble Eightfold Path constitutes the practical guidelines given by Gautama Buddha to end suffering, discover mental peace, and achieve absolute wisdom.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Path 1 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">01</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා දිට්ඨි</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right View</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Understanding the true nature of reality and the Four Noble Truths with absolute clarity.</p>
+        </div>
+
+        <!-- Path 2 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">02</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා සංකප්ප</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Intent</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Guarding thoughts toward renunciation, loving-kindness, and peaceful harmlessness.</p>
+        </div>
+
+        <!-- Path 3 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">03</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා වාචා</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Speech</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Abstaining from lying, harsh speech, slander, and senseless gossip. Speaking kindly.</p>
+        </div>
+
+        <!-- Path 4 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">04</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා කම්මන්ත</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Action</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Acting morally, respecting life, and refraining from stealing or misconduct.</p>
+        </div>
+
+        <!-- Path 5 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">05</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා ආජීව</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Livelihood</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Earning a peaceful, honest living that causes no harm, suffering, or pain to any living beings.</p>
+        </div>
+
+        <!-- Path 6 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">06</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා වායාම</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Effort</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Putting active effort into preventing unwholesome thoughts and cultivating peaceful states of mind.</p>
+        </div>
+
+        <!-- Path 7 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">07</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා සති</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Mindfulness</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Remaining dynamically aware of our physical bodies, feelings, mental states, and truths.</p>
+        </div>
+
+        <!-- Path 8 -->
+        <div class="glass-card p-6 rounded-2xl relative border border-white/5 transition-all duration-300">
+          <div class="absolute top-4 right-4 text-xs font-bold text-spiritual-gold/30">08</div>
+          <h4 class="font-sinhala font-bold text-lg text-spiritual-gold">සම්මා සමාධි</h4>
+          <h5 class="text-xs font-semibold text-slate-300 font-cinzel mt-0.5">Right Concentration</h5>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed">Concentrating the mind single-pointedly to discover high spiritual realizations.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-spiritual-deep/80 backdrop-blur-md border-t border-white/10 py-12 px-6 lg:px-12 z-20 text-slate-400 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="flex flex-col gap-4 text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <svg class="w-7 h-7 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+          <span class="font-cinzel font-bold text-base tracking-widest text-white">VESAK CELEBRATIONS 2026</span>
+        </div>
+        <p class="font-sinhala text-sm leading-relaxed text-slate-400 max-w-sm mx-auto md:mx-0">
+          ත්‍රිවිධ මංගල්‍යයේ උදාර පණිවිඩය මුළු විශ්වය පුරාම සාමය, කරුණාව සහ දයාව පතුරුවා හරීවා! ඔබ සැමට ධර්මයේ සිසිලස පිරුණු වෙසක් මංගල්‍යයක් වේවා.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-center gap-4">
+        <h4 class="font-cinzel text-xs font-bold tracking-widest text-white uppercase">Menu Links</h4>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-xs">
+          <a href="index.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Home</a>
+          <a href="significance.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Significance</a>
+          <a href="lanterns.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Lantern Garden</a>
+          <a href="cards.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Card Studio</a>
+          <a href="music.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Devotional Chants</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 items-center md:items-end text-center md:text-right justify-center">
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400">Purely coded with devotion for the community</span>
+          <div class="w-8 h-8 rounded-full bg-spiritual-pink/10 border border-spiritual-pink/30 flex items-center justify-center text-spiritual-pink animate-pulse">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500 font-light mt-1">
+          Designed using Tailwind HTML5 & JS. All rights reserved &copy; 2026 Vesak Festival.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    lucide.createIcons();
+
+    // Toggle Mobile Navigation Drawer
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Starfield Generator
+    function generateStars() {
+      const starfield = document.getElementById('starfield');
+      const count = window.innerWidth < 768 ? 40 : 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animation = `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starfield.appendChild(star);
+      }
+    }
+    
+    window.addEventListener('load', generateStars);
+
+    // Dynamic Tab Switching
+    function switchTab(tabId) {
+      const tabs = ['birth', 'enlightenment', 'parinirvana'];
+      
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tabBtn-${t}`);
+        const content = document.getElementById(`tab-${t}`);
+        
+        if (t === tabId) {
+          // Activate
+          content.classList.remove('hidden');
+          
+          if (t === 'birth') {
+            btn.className = "px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md shadow-emerald-500/5 bg-emerald-500/10 border-emerald-500/40 text-emerald-400";
+          } else if (t === 'enlightenment') {
+            btn.className = "px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md shadow-spiritual-gold/5 bg-spiritual-gold/10 border-spiritual-gold/40 text-spiritual-gold";
+          } else if (t === 'parinirvana') {
+            btn.className = "px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md shadow-orange-500/5 bg-orange-500/10 border-orange-500/40 text-orange-400";
+          }
+        } else {
+          // Deactivate
+          content.classList.add('hidden');
+          btn.className = "px-6 py-3 rounded-full text-sm font-bold border transition-all duration-300 flex items-center gap-2 outline-none shadow-md hover:bg-white/10 border-white/10 text-slate-300";
+        }
+      });
+      
+      // Play a small click chime
+      playSmallChime();
+    }
+
+    // Web Audio Sound Engines
+    let audioCtx = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTempleBowl() {
+      initAudio();
+      const now = audioCtx.currentTime;
+      const tones = [261.63, 329.63, 392.00, 523.25]; // Resonant C chord
+      
+      tones.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.type = index === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+        
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.1 / tones.length, now + 0.05);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 4 - (index * 0.3));
+        
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 4.5);
+      });
+    }
+
+    function playSmallChime() {
+      initAudio();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, now); // High pitch A5
+      gainNode.gain.setValueAtTime(0.04, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+      
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.9);
+    }
+  </script>
+</body>
+</html>

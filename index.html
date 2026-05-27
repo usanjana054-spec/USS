@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ඔබ සැමට පින්බර වෙසක් මංගල්‍යයක් වේවා! | Blessed Vesak Festival</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="පින්බර වෙසක් මංගල්‍යයක් වේවා! Experience the spiritual beauty of Vesak with our virtual lantern garden, custom digital card generator, devotional chants, and deep historical reflections.">
+  <meta name="keywords" content="Vesak, Vesak Kudu, Buddha, Buddhism, Sri Lanka, Sinhala, Vesak Card Generator, Virtual Lantern, Devotional Chants">
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@500;700;800&family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sinhala: ['"Abhaya Libre"', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            spiritual: {
+              deep: '#070814',
+              violet: '#131130',
+              gold: '#D4AF37',
+              amber: '#F39C12',
+              pink: '#FF8DA1',
+              glow: '#FFE89E',
+            }
+          },
+          animation: {
+            'float-slow': 'float 8s ease-in-out infinite',
+            'float-medium': 'float 5s ease-in-out infinite',
+            'float-fast': 'float 3s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
+            'star-twinkle': 'twinkle 4s ease-in-out infinite',
+            'spin-slow': 'spin 20s linear infinite',
+            'rise': 'rise 12s linear infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS for specialized effects -->
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(1deg); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4)); }
+      50% { filter: drop-shadow(0 0 20px rgba(243, 156, 18, 0.8)); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    @keyframes rise {
+      0% { transform: translateY(100vh) scale(0.6); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+    }
+    
+    .text-glow-gold {
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(243, 156, 18, 0.3);
+    }
+    .text-glow-pink {
+      text-shadow: 0 0 10px rgba(255, 141, 161, 0.5), 0 0 20px rgba(255, 141, 161, 0.3);
+    }
+    .glass-card {
+      background: rgba(19, 17, 48, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 25px rgba(243, 156, 18, 0.15);
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body class="bg-spiritual-deep text-slate-200 font-outfit overflow-x-hidden min-h-screen relative flex flex-col justify-between">
+  
+  <!-- Twinkling Starry Background Canvas/Container -->
+  <div id="starfield" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
+  
+  <!-- Floating Background Lotus Light Particles -->
+  <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute w-2 h-2 rounded-full bg-spiritual-gold opacity-30 animate-rise" style="left: 10%; animation-delay: 0s; animation-duration: 14s;"></div>
+    <div class="absolute w-3 h-3 rounded-full bg-spiritual-pink opacity-25 animate-rise" style="left: 30%; animation-delay: 3s; animation-duration: 18s;"></div>
+    <div class="absolute w-2.5 h-2.5 rounded-full bg-spiritual-gold opacity-20 animate-rise" style="left: 55%; animation-delay: 1s; animation-duration: 16s;"></div>
+    <div class="absolute w-2 h-2 rounded-full bg-orange-400 opacity-30 animate-rise" style="left: 75%; animation-delay: 5s; animation-duration: 15s;"></div>
+    <div class="absolute w-3.5 h-3.5 rounded-full bg-spiritual-pink opacity-15 animate-rise" style="left: 90%; animation-delay: 2s; animation-duration: 20s;"></div>
+  </div>
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-50 w-full px-4 lg:px-8 py-4 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-spiritual-violet/40 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/30">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-spiritual-gold/10 flex items-center justify-center border border-spiritual-gold/30 group-hover:border-spiritual-gold/60 transition-all duration-300">
+          <svg class="w-6 h-6 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <!-- Dharmachakra Wheel SVG -->
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="font-cinzel font-bold text-lg tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-400 group-hover:to-spiritual-pink transition-all duration-300">VESAK 2026</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-gold/20">Home</a>
+        <a href="significance.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Significance</a>
+        <a href="lanterns.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Virtual Garden</a>
+        <a href="cards.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Card Creator</a>
+        <a href="music.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Serenity Chants</a>
+      </div>
+
+      <!-- Action Button / Sound Toggle -->
+      <div class="hidden md:flex items-center gap-3">
+        <button id="soundToggle" onclick="toggleSpiritualBell()" class="p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-spiritual-gold/40 text-spiritual-gold transition-all duration-300" title="Play Healing Temple Bowl Sound">
+          <i data-lucide="bell-ring" class="w-5 h-5"></i>
+        </button>
+        <a href="cards.html" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-spiritual-gold to-spiritual-amber hover:from-spiritual-amber hover:to-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-amber/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">Wish Card</a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-spiritual-gold hover:bg-white/5 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </nav>
+    
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden mt-3 px-4 py-6 rounded-3xl glass-card flex flex-col gap-3 animate-fade-in z-50 relative">
+      <a href="index.html" class="px-4 py-3 rounded-xl bg-spiritual-gold text-spiritual-deep font-bold text-center">Home</a>
+      <a href="significance.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="book-open" class="w-5 h-5 text-spiritual-gold"></i> Significance of Vesak
+      </a>
+      <a href="lanterns.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="sparkles" class="w-5 h-5 text-spiritual-gold"></i> Virtual Lantern Garden
+      </a>
+      <a href="cards.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="images" class="w-5 h-5 text-spiritual-gold"></i> Create Greeting Cards
+      </a>
+      <a href="music.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="music" class="w-5 h-5 text-spiritual-gold"></i> Serenity Audio Chants
+      </a>
+      <div class="h-[1px] bg-white/10 my-1"></div>
+      <div class="flex items-center justify-between px-4 mt-2">
+        <span class="text-xs text-slate-400">Peace Bell Sound</span>
+        <button onclick="toggleSpiritualBell()" class="p-3 rounded-full bg-white/5 border border-white/10 text-spiritual-gold">
+          <i data-lucide="bell" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <main class="w-full flex-grow z-10 px-4 lg:px-8 py-6 max-w-7xl mx-auto flex flex-col justify-center">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center my-6">
+      
+      <!-- HERO TEXT -->
+      <div class="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
+        
+        <!-- Sinhala Vesak Blessing Title -->
+        <h1 class="font-sinhala font-extrabold text-4xl sm:text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-white via-spiritual-glow to-spiritual-gold leading-tight text-glow-gold tracking-wide mb-6">
+          ඔබ සැමට පින්බර <br class="hidden sm:inline">වෙසක් මංගල්‍යයක් වේවා!
+        </h1>
+        
+        <!-- English Blessing Subtitle -->
+        <p class="font-outfit font-light text-slate-300 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8">
+          Wishing you all a highly blessed, peaceful and serene <span class="text-spiritual-gold font-semibold text-glow-gold">Vesak Full Moon Poya Day</span>. 
+          May the gentle light of the Buddha's wisdom illuminate your mind, guide your life pathway, and fill your home with absolute compassion, pure happiness, and lasting peace.
+        </p>
+
+        <!-- Interactive Quick Wish Lamp Widget -->
+        <div class="glass-card max-w-xl mx-auto lg:mx-0 p-5 rounded-3xl flex flex-col sm:flex-row items-center gap-5 border border-spiritual-gold/20 mb-8 transition-all duration-300">
+          <div class="relative w-16 h-16 flex items-center justify-center bg-spiritual-gold/10 rounded-full border border-spiritual-gold/20 flex-shrink-0 animate-pulse-glow">
+            <svg id="heroLampFlame" class="w-10 h-10 text-spiritual-amber transition-all duration-500 transform scale-75" viewBox="0 0 24 24" fill="currentColor">
+              <!-- Oil Lamp Flame SVG -->
+              <path d="M12 2C12 2 6 8 6 12C6 15.3137 8.68629 18 12 18C15.3137 18 18 15.3137 18 12C18 8 12 2 12 2Z"/>
+            </svg>
+            <div id="lampBody" class="absolute bottom-1 w-12 h-6 bg-amber-900 border-2 border-spiritual-gold/60 rounded-b-full"></div>
+          </div>
+          
+          <div class="text-center sm:text-left">
+            <h3 class="font-sinhala font-bold text-lg text-spiritual-gold">පින්බර පහනක් දල්වමු</h3>
+            <p class="text-xs text-slate-400 mt-1">Light a virtual lamp below to invoke infinite peace and mindfulness across the universe.</p>
+            <button onclick="igniteHeroLamp()" id="igniteBtn" class="mt-2.5 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/5 hover:bg-spiritual-gold/20 border border-spiritual-gold/30 hover:border-spiritual-gold text-slate-200 hover:text-spiritual-gold transition-all duration-300">
+              Light Virtual Lamp
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <a href="lanterns.html" class="w-full sm:w-auto px-8 py-4 rounded-full text-center font-bold text-spiritual-deep bg-gradient-to-r from-spiritual-gold via-amber-400 to-spiritual-amber shadow-lg shadow-spiritual-amber/35 transform hover:-translate-y-1 hover:scale-[1.02] active:translate-y-0 active:scale-100 transition-all duration-300 flex items-center justify-center gap-3 group">
+            <i data-lucide="sparkles" class="w-5 h-5 text-spiritual-deep animate-pulse"></i>
+            <span>Light Floating Lanterns</span>
+          </a>
+          <a href="cards.html" class="w-full sm:w-auto px-8 py-4 rounded-full text-center font-bold border border-white/20 hover:border-spiritual-gold/60 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-spiritual-gold shadow-md transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-3">
+            <i data-lucide="image" class="w-5 h-5"></i>
+            <span>Create Custom Cards</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- HERO VISUAL (GENERATED LANTERN IMAGE) -->
+      <div class="lg:col-span-5 flex justify-center items-center relative">
+        <!-- Golden Glowing Aura Ring -->
+        <div class="absolute w-[80%] aspect-square rounded-full bg-gradient-to-tr from-spiritual-amber/10 via-spiritual-gold/10 to-transparent blur-3xl"></div>
+        <div class="absolute w-[60%] aspect-square rounded-full bg-spiritual-pink/5 blur-3xl"></div>
+
+        <!-- Main Frame -->
+        <div class="relative w-full max-w-[420px] aspect-square rounded-[2.5rem] overflow-hidden border border-spiritual-gold/30 shadow-2xl shadow-black/80 p-3 bg-white/5 backdrop-blur-md animate-float-slow">
+          <!-- Glass Reflection Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 pointer-events-none z-20"></div>
+          
+          <!-- Inner Decorative Border -->
+          <div class="absolute inset-2 rounded-[2rem] border border-white/5 pointer-events-none z-20"></div>
+          
+          <!-- The beautiful generated Vesak Lantern image -->
+          <img src="assets/hero.png" alt="Traditional glowing Vesak lantern and full moon background" class="w-full h-full object-cover rounded-[2rem] shadow-inner select-none transition-all duration-700 hover:scale-105">
+          
+          <!-- Embedded Sinhala Text Pill -->
+          <div class="absolute bottom-6 left-6 right-6 z-30 px-4 py-3 rounded-2xl bg-spiritual-deep/80 backdrop-blur-md border border-spiritual-gold/25 text-center">
+            <span class="font-sinhala text-sm tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-300 font-bold block">
+              වෙසක් පුන් පොහෝ මංගල්‍යය - 2026
+            </span>
+          </div>
+        </div>
+        
+        <!-- Small Floating Accent Elements -->
+        <div class="absolute top-12 left-8 w-12 h-12 bg-spiritual-gold/10 backdrop-blur-md border border-spiritual-gold/30 rounded-2xl flex items-center justify-center text-spiritual-gold animate-float-medium z-30" style="animation-delay: 1.5s;">
+          <i data-lucide="heart" class="w-6 h-6"></i>
+        </div>
+        <div class="absolute bottom-12 right-6 w-14 h-14 bg-spiritual-pink/10 backdrop-blur-md border border-spiritual-pink/30 rounded-full flex items-center justify-center text-spiritual-pink animate-float-fast z-30" style="animation-delay: 0.5s;">
+          <i data-lucide="flower" class="w-7 h-7"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CAROUSEL / HIGHLIGHT FEATURES SECTION -->
+    <section class="py-12 my-8 border-t border-white/10">
+      <div class="text-center mb-10">
+        <h2 class="font-cinzel text-xs tracking-widest text-spiritual-gold uppercase mb-2">Explore the Festival</h2>
+        <h3 class="font-sinhala font-extrabold text-3xl md:text-4xl text-white">වෙසක් මංගල්‍යයේ උත්කර්ෂවත් අංග</h3>
+        <div class="w-24 h-1 bg-gradient-to-r from-transparent via-spiritual-gold to-transparent mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2">
+        
+        <!-- Card 1: Significance -->
+        <a href="significance.html" class="glass-card p-6 rounded-3xl group transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between h-80">
+          <div class="flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-400/20 text-indigo-400 flex items-center justify-center group-hover:scale-110 group-hover:bg-indigo-400 group-hover:text-spiritual-deep transition-all duration-300">
+              <i data-lucide="book-marked" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h4 class="font-sinhala font-bold text-xl text-white group-hover:text-spiritual-gold transition-colors duration-300">ත්‍රිවිධ මංගල්‍යය</h4>
+              <h5 class="text-xs font-semibold text-slate-400 font-cinzel tracking-wider mt-0.5">The Significance</h5>
+              <p class="text-xs text-slate-400 leading-relaxed mt-3">
+                Explore the deep spiritual legacy of Gautama Buddha: The Birth, Supreme Enlightenment, and Parinirvana.
+              </p>
+            </div>
+          </div>
+          <span class="text-xs text-spiritual-gold font-bold flex items-center gap-1 group-hover:gap-2 transition-all duration-300 mt-4">
+            Read Dhamma Teachings <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </span>
+        </a>
+
+        <!-- Card 2: Virtual Garden -->
+        <a href="lanterns.html" class="glass-card p-6 rounded-3xl group transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between h-80">
+          <div class="flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-spiritual-gold/10 border border-spiritual-gold/20 text-spiritual-gold flex items-center justify-center group-hover:scale-110 group-hover:bg-spiritual-gold group-hover:text-spiritual-deep transition-all duration-300">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h4 class="font-sinhala font-bold text-xl text-white group-hover:text-spiritual-gold transition-colors duration-300">වෙසක් පහන් උයන</h4>
+              <h5 class="text-xs font-semibold text-slate-400 font-cinzel tracking-wider mt-0.5">Virtual Lanterns</h5>
+              <p class="text-xs text-slate-400 leading-relaxed mt-3">
+                Light traditional hanging lanterns and clay lamps with custom personalized prayers, watch them float away.
+              </p>
+            </div>
+          </div>
+          <span class="text-xs text-spiritual-gold font-bold flex items-center gap-1 group-hover:gap-2 transition-all duration-300 mt-4">
+            Enter Lantern Garden <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </span>
+        </a>
+
+        <!-- Card 3: Greeting Cards -->
+        <a href="cards.html" class="glass-card p-6 rounded-3xl group transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between h-80">
+          <div class="flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-spiritual-pink/10 border border-spiritual-pink/20 text-spiritual-pink flex items-center justify-center group-hover:scale-110 group-hover:bg-spiritual-pink group-hover:text-spiritual-deep transition-all duration-300">
+              <i data-lucide="palette" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h4 class="font-sinhala font-bold text-xl text-white group-hover:text-spiritual-gold transition-colors duration-300">සුභපැතුම්පත් නිර්මාණය</h4>
+              <h5 class="text-xs font-semibold text-slate-400 font-cinzel tracking-wider mt-0.5">Greeting Studio</h5>
+              <p class="text-xs text-slate-400 leading-relaxed mt-3">
+                Design custom cards with traditional background graphics, add your name, and instantly download to share.
+              </p>
+            </div>
+          </div>
+          <span class="text-xs text-spiritual-gold font-bold flex items-center gap-1 group-hover:gap-2 transition-all duration-300 mt-4">
+            Start Designing Cards <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </span>
+        </a>
+
+        <!-- Card 4: Audio Player -->
+        <a href="music.html" class="glass-card p-6 rounded-3xl group transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between h-80">
+          <div class="flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 flex items-center justify-center group-hover:scale-110 group-hover:bg-emerald-400 group-hover:text-spiritual-deep transition-all duration-300">
+              <i data-lucide="volume-2" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <h4 class="font-sinhala font-bold text-xl text-white group-hover:text-spiritual-gold transition-colors duration-300">භක්ති ගී සහ පිරිත්</h4>
+              <h5 class="text-xs font-semibold text-slate-400 font-cinzel tracking-wider mt-0.5">Serene Sounds</h5>
+              <p class="text-xs text-slate-400 leading-relaxed mt-3">
+                Immerse yourself in deep relaxation with peaceful Buddhist sutta chants, bamboo flute instrumentals, and translations.
+              </p>
+            </div>
+          </div>
+          <span class="text-xs text-spiritual-gold font-bold flex items-center gap-1 group-hover:gap-2 transition-all duration-300 mt-4">
+            Listen to Chants <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- INSPIRATIONAL BUDDHA QUOTE SECTION -->
+    <section class="max-w-4xl mx-auto my-12 py-10 px-8 rounded-[2rem] glass-card text-center relative border border-white/5 overflow-hidden">
+      <!-- Gradient ambient light in the background -->
+      <div class="absolute inset-0 bg-gradient-to-b from-spiritual-violet/10 via-transparent to-spiritual-gold/5 pointer-events-none"></div>
+      
+      <!-- Lotus watermark in the center of background -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 pointer-events-none">
+        <i data-lucide="flower" class="w-64 h-64 text-white"></i>
+      </div>
+
+      <div class="relative z-10">
+        <i data-lucide="quote" class="w-10 h-10 text-spiritual-gold opacity-50 mx-auto mb-6"></i>
+        
+        <h4 class="font-sinhala font-bold text-2xl md:text-3xl text-spiritual-glow leading-relaxed max-w-2xl mx-auto mb-4">
+          "අත්තාහි අත්තනෝ නාථෝ - තමන්ට පිහිට තමන්මය."
+        </h4>
+        
+        <p class="text-sm font-light text-slate-400 italic max-w-xl mx-auto mb-6 font-outfit">
+          "No one saves us but ourselves. No one can and no one may. We ourselves must walk the path."
+        </p>
+
+        <span class="text-xs font-bold uppercase tracking-wider text-spiritual-gold/75 font-cinzel">— Gautama Buddha</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-spiritual-deep/80 backdrop-blur-md border-t border-white/10 py-12 px-6 lg:px-12 z-20 text-slate-400 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+      
+      <!-- Left Column: Branding and Blessings -->
+      <div class="flex flex-col gap-4 text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <svg class="w-7 h-7 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+          <span class="font-cinzel font-bold text-base tracking-widest text-white">VESAK CELEBRATIONS 2026</span>
+        </div>
+        <p class="font-sinhala text-sm leading-relaxed text-slate-400 max-w-sm mx-auto md:mx-0">
+          ත්‍රිවිධ මංගල්‍යයේ උදාර පණිවිඩය මුළු විශ්වය පුරාම සාමය, කරුණාව සහ දයාව පතුරුවා හරීවා! ඔබ සැමට ධර්මයේ සිසිලස පිරුණු වෙසක් මංගල්‍යයක් වේවා.
+        </p>
+      </div>
+
+      <!-- Center Column: Quick Navigation Links -->
+      <div class="flex flex-col items-center gap-4">
+        <h4 class="font-cinzel text-xs font-bold tracking-widest text-white uppercase">Menu Links</h4>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-xs">
+          <a href="index.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Home</a>
+          <a href="significance.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Significance</a>
+          <a href="lanterns.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Lantern Garden</a>
+          <a href="cards.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Card Studio</a>
+          <a href="music.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Devotional Chants</a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Heart & Dedication -->
+      <div class="flex flex-col gap-4 items-center md:items-end text-center md:text-right justify-center">
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400">Purely coded with devotion for the community</span>
+          <div class="w-8 h-8 rounded-full bg-spiritual-pink/10 border border-spiritual-pink/30 flex items-center justify-center text-spiritual-pink animate-pulse">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500 font-light mt-1">
+          Designed using Tailwind HTML5 & JS. All rights reserved &copy; 2026 Vesak Festival.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- CORE SCRIPTS -->
+  <script>
+    // Initialize Lucide SVG Icons
+    lucide.createIcons();
+
+    // Toggle Mobile Navigation Drawer
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Twinkling stars background generator (Client-Side Vector generation)
+    function generateStars() {
+      const starfield = document.getElementById('starfield');
+      const count = window.innerWidth < 768 ? 40 : 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animation = `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starfield.appendChild(star);
+      }
+    }
+    
+    window.addEventListener('load', generateStars);
+
+    // Audio Bell Chime using Web Audio API (Saves download and bandwidth!)
+    let audioCtx = null;
+    
+    function toggleSpiritualBell() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      const now = audioCtx.currentTime;
+      
+      // Creating a beautiful multi-tone resonant temple bell!
+      const tones = [261.63, 329.63, 392.00, 523.25]; // C chord harmonic chime
+      
+      tones.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        
+        osc.type = index === 0 ? 'sine' : 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+        
+        gainNode.gain.setValueAtTime(0, now);
+        gainNode.gain.linearRampToValueAtTime(0.12 / tones.length, now + 0.05);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 3.5 - (index * 0.3));
+        
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        
+        osc.start(now);
+        osc.stop(now + 4);
+      });
+      
+      // Floating Visual Ripple Effect
+      const soundBtn = document.getElementById('soundToggle');
+      soundBtn.classList.add('scale-110', 'border-spiritual-gold');
+      setTimeout(() => {
+        soundBtn.classList.remove('scale-110', 'border-spiritual-gold');
+      }, 300);
+    }
+
+    // Interactive Hero Oil Lamp Spark
+    let lampLit = false;
+    function igniteHeroLamp() {
+      const flame = document.getElementById('heroLampFlame');
+      const btn = document.getElementById('igniteBtn');
+      
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      if (!lampLit) {
+        // High tone bell chime
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+        osc.frequency.setValueAtTime(659.25, now); // E5
+        gainNode.gain.setValueAtTime(0.1, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 2);
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(now + 2.1);
+        
+        // Light up flame
+        flame.classList.remove('text-spiritual-amber', 'scale-75');
+        flame.classList.add('text-yellow-300', 'scale-110', 'animate-pulse-glow');
+        flame.setAttribute('fill', '#FEE082');
+        
+        btn.innerHTML = 'Lamp Illuminated ✨';
+        btn.classList.add('bg-spiritual-gold/30', 'text-spiritual-gold');
+        lampLit = true;
+      } else {
+        // Extinguish
+        flame.classList.add('text-spiritual-amber', 'scale-75');
+        flame.classList.remove('text-yellow-300', 'scale-110', 'animate-pulse-glow');
+        flame.setAttribute('fill', 'currentColor');
+        btn.innerHTML = 'Light Virtual Lamp';
+        btn.classList.remove('bg-spiritual-gold/30', 'text-spiritual-gold');
+        lampLit = false;
+      }
+    }
+  </script>
+</body>
+</html>

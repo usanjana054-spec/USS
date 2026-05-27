@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>සුභපැතුම්පත් නිර්මාණය | Digital Vesak Card Studio</title>
+  <meta name="description" content="Create personalized Vesak greeting cards online. Choose traditional templates, write your name, customize blessings, and download immediately in HD to share.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@500;700;800&family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sinhala: ['"Abhaya Libre"', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            spiritual: {
+              deep: '#060714',
+              violet: '#0e0c26',
+              gold: '#D4AF37',
+              amber: '#F39C12',
+              pink: '#FF8DA1',
+              glow: '#FFE89E',
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 20s linear infinite',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass-card {
+      background: rgba(14, 12, 38, 0.5);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-spiritual-deep text-slate-200 font-outfit overflow-x-hidden min-h-screen relative flex flex-col justify-between">
+
+  <!-- Background stars -->
+  <div id="starfield" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 w-full px-4 lg:px-8 py-4 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-spiritual-violet/40 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/30">
+      
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-spiritual-gold/10 flex items-center justify-center border border-spiritual-gold/30 group-hover:border-spiritual-gold/60 transition-all duration-300">
+          <svg class="w-6 h-6 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="font-cinzel font-bold text-lg tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-400 group-hover:to-spiritual-pink transition-all duration-300">VESAK 2026</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Home</a>
+        <a href="significance.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Significance</a>
+        <a href="lanterns.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Virtual Garden</a>
+        <a href="cards.html" class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-gold/20">Card Creator</a>
+        <a href="music.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Serenity Chants</a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-3">
+        <button id="cardSoundBtn" onclick="playChime()" class="p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-spiritual-gold/40 text-spiritual-gold transition-all duration-300">
+          <i data-lucide="bell" class="w-5 h-5"></i>
+        </button>
+        <a href="cards.html" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-spiritual-gold to-spiritual-amber hover:from-spiritual-amber hover:to-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-amber/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">Wish Card</a>
+      </div>
+
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-spiritual-gold hover:bg-white/5 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </nav>
+    
+    <div id="mobileMenu" class="hidden md:hidden mt-3 px-4 py-6 rounded-3xl glass-card flex flex-col gap-3 animate-fade-in z-50 relative">
+      <a href="index.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="home" class="w-5 h-5 text-spiritual-gold"></i> Home
+      </a>
+      <a href="significance.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="book-open" class="w-5 h-5 text-spiritual-gold"></i> Significance of Vesak
+      </a>
+      <a href="lanterns.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="sparkles" class="w-5 h-5 text-spiritual-gold"></i> Virtual Lantern Garden
+      </a>
+      <a href="cards.html" class="px-4 py-3 rounded-xl bg-spiritual-gold text-spiritual-deep font-bold text-center">Create Greeting Cards</a>
+      <a href="music.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="music" class="w-5 h-5 text-spiritual-gold"></i> Serenity Audio Chants
+      </a>
+    </div>
+  </header>
+
+  <!-- CARD GENERATOR CORE CONTENT -->
+  <main class="w-full flex-grow z-10 px-4 lg:px-8 py-8 max-w-7xl mx-auto flex flex-col">
+    
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h1 class="font-cinzel text-xs tracking-widest text-spiritual-gold uppercase mb-2">Personalized Greetings</h1>
+      <h2 class="font-sinhala font-extrabold text-3xl sm:text-4xl text-white text-glow-gold">සුභපැතුම්පත් නිර්මාණ ස්ටූඩියෝව</h2>
+      <p class="text-xs text-slate-400 mt-2 font-outfit">Create and design a breathtaking, high-definition Vesak greeting card featuring local assets. Personalize the text, add your name, and download immediately to share with your loved ones.</p>
+    </div>
+
+    <!-- MAIN TWO COLUMN WORKSPACE -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- LEFT COLUMN: CONTROLS PANEL -->
+      <div class="lg:col-span-5 w-full glass-card p-6 rounded-3xl border border-spiritual-gold/20 shadow-2xl flex flex-col gap-5 z-20">
+        
+        <h3 class="font-sinhala font-bold text-lg text-spiritual-glow flex items-center gap-2 border-b border-white/10 pb-3">
+          <i data-lucide="sliders" class="w-5 h-5 text-spiritual-gold"></i>
+          <span>සුභපැතුම සකසන්න</span>
+        </h3>
+
+        <!-- Control 1: Background Template -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Choose Background template</label>
+          <div class="grid grid-cols-3 gap-2">
+            
+            <!-- Option A: Hero Lantern -->
+            <button onclick="selectTemplate('hero')" id="tmplBtn-hero" class="flex flex-col items-center p-2 rounded-xl border transition-all duration-200 bg-spiritual-gold/10 border-spiritual-gold text-spiritual-gold">
+              <div class="w-full aspect-video rounded-lg overflow-hidden mb-1 relative border border-white/10">
+                <img src="assets/hero.png" class="w-full h-full object-cover">
+              </div>
+              <span class="text-[9px] font-bold">Vesak Lantern</span>
+            </button>
+
+            <!-- Option B: Serene Buddha -->
+            <button onclick="selectTemplate('buddha')" id="tmplBtn-buddha" class="flex flex-col items-center p-2 rounded-xl border transition-all duration-200 bg-white/5 border-white/10 text-slate-400 hover:border-spiritual-gold/40 hover:text-spiritual-gold">
+              <div class="w-full aspect-video rounded-lg overflow-hidden mb-1 relative border border-white/10">
+                <img src="assets/buddha.png" class="w-full h-full object-cover">
+              </div>
+              <span class="text-[9px] font-bold">Buddha Aura</span>
+            </button>
+
+            <!-- Option C: Pure Mandala -->
+            <button onclick="selectTemplate('lotus')" id="tmplBtn-lotus" class="flex flex-col items-center p-2 rounded-xl border transition-all duration-200 bg-white/5 border-white/10 text-slate-400 hover:border-spiritual-gold/40 hover:text-spiritual-gold">
+              <div class="w-full aspect-video rounded-lg overflow-hidden mb-1 relative border border-white/10 bg-gradient-to-tr from-pink-900 to-indigo-950 flex items-center justify-center">
+                <i data-lucide="flower" class="w-6 h-6 text-spiritual-pink"></i>
+              </div>
+              <span class="text-[9px] font-bold">Lotus Glow</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Control 2: Custom Blessing Wish -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Personal Blessing / Wish</label>
+          <textarea id="cardWish" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-spiritual-deep/80 border border-white/10 hover:border-spiritual-gold/40 focus:border-spiritual-gold text-xs text-slate-200 focus:outline-none transition-all duration-300" placeholder="e.g. ඔබ සැමට ත්‍රිවිධ රත්නයේ ආශිර්වාදයෙන් සාමය, සතුට සපිරි පින්බර වෙසක් මංගල්‍යයක් වේවා!"></textarea>
+          <div class="flex flex-wrap gap-1.5 mt-2">
+            <button onclick="setQuickWish(1)" class="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/5 text-[10px] text-slate-300">Sinhala Wish 1</button>
+            <button onclick="setQuickWish(2)" class="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/5 text-[10px] text-slate-300">Sinhala Wish 2</button>
+            <button onclick="setQuickWish(3)" class="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 border border-white/5 text-[10px] text-slate-300">English Wish</button>
+          </div>
+        </div>
+
+        <!-- Control 3: Sender Name -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">From (Your Name)</label>
+          <input type="text" id="cardSender" class="w-full px-4 py-2 rounded-xl bg-spiritual-deep/80 border border-white/10 hover:border-spiritual-gold/40 focus:border-spiritual-gold text-xs text-slate-200 focus:outline-none transition-all duration-300" placeholder="e.g. Sunil, Nayanathara & Family">
+        </div>
+
+        <!-- Control 4: Text Color and Font size -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Text Color</label>
+            <select id="cardTextColor" onchange="drawCard()" class="w-full px-3 py-2 rounded-xl bg-spiritual-deep border border-white/10 text-xs focus:outline-none text-slate-300">
+              <option value="#FFE89E" selected>Glowing Gold</option>
+              <option value="#ffffff">Pure White</option>
+              <option value="#FF8DA1">Lotus Pink</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Font Size</label>
+            <input type="range" id="cardFontSize" min="16" max="32" value="22" oninput="drawCard()" class="w-full mt-2 accent-spiritual-gold">
+          </div>
+        </div>
+
+        <!-- Download Action -->
+        <button onclick="downloadGreetingCard()" class="w-full py-4 mt-2 rounded-2xl font-bold text-spiritual-deep bg-gradient-to-r from-spiritual-gold via-amber-400 to-spiritual-amber hover:from-spiritual-amber hover:to-spiritual-gold shadow-lg shadow-spiritual-amber/25 hover:shadow-spiritual-amber/40 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-2">
+          <i data-lucide="download" class="w-5 h-5 text-spiritual-deep animate-bounce"></i>
+          <span>Download High Quality Card</span>
+        </button>
+
+      </div>
+
+      <!-- RIGHT COLUMN: LIVE CANVAS PREVIEW -->
+      <div class="lg:col-span-7 w-full flex flex-col items-center justify-center z-10">
+        
+        <!-- Frame Container -->
+        <div class="relative w-full max-w-[500px] aspect-[4/3] rounded-3xl border border-spiritual-gold/25 p-2 bg-white/5 backdrop-blur-md shadow-2xl shadow-black/80">
+          <!-- Real-time responsive visual frame scaling -->
+          <canvas id="cardCanvas" class="w-full h-full rounded-2xl shadow-inner select-none bg-spiritual-deep"></canvas>
+          
+          <div class="absolute -top-3 -left-3 w-8 h-8 rounded-full bg-spiritual-gold/10 border border-spiritual-gold/30 flex items-center justify-center text-spiritual-gold">
+            <i data-lucide="eye" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <span class="text-[10px] text-slate-500 font-light mt-4 italic">
+          Preview shows responsively scaled canvas. Download yields premium high-definition 800x600 PNG.
+        </span>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-spiritual-deep/80 backdrop-blur-md border-t border-white/10 py-12 px-6 lg:px-12 z-20 text-slate-400 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="flex flex-col gap-4 text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <svg class="w-7 h-7 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+          <span class="font-cinzel font-bold text-base tracking-widest text-white">VESAK CELEBRATIONS 2026</span>
+        </div>
+        <p class="font-sinhala text-sm leading-relaxed text-slate-400 max-w-sm mx-auto md:mx-0">
+          ත්‍රිවිධ මංගල්‍යයේ උදාර පණිවිඩය මුළු විශ්වය පුරාම සාමය, කරුණාව සහ දයාව පතුරුවา හරීවා! ඔබ සැමට ධර්මයේ සිසිලස පිරුණු වෙසක් මංගල්‍යයක් වේවා.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-center gap-4">
+        <h4 class="font-cinzel text-xs font-bold tracking-widest text-white uppercase">Menu Links</h4>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-xs">
+          <a href="index.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Home</a>
+          <a href="significance.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Significance</a>
+          <a href="lanterns.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Lantern Garden</a>
+          <a href="cards.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Card Studio</a>
+          <a href="music.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Devotional Chants</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 items-center md:items-end text-center md:text-right justify-center">
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400">Purely coded with devotion for the community</span>
+          <div class="w-8 h-8 rounded-full bg-spiritual-pink/10 border border-spiritual-pink/30 flex items-center justify-center text-spiritual-pink animate-pulse">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500 font-light mt-1">
+          Designed using Tailwind HTML5 & JS. All rights reserved &copy; 2026 Vesak Festival.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT FOR CARD CANVAS DESIGN STUDIO -->
+  <script>
+    lucide.createIcons();
+
+    // Toggle Mobile Navigation Drawer
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Starfield Generator
+    function generateStars() {
+      const starfield = document.getElementById('starfield');
+      const count = window.innerWidth < 768 ? 40 : 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animation = `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starfield.appendChild(star);
+      }
+    }
+    window.addEventListener('load', generateStars);
+
+    // Audio Engine Click trigger
+    let audioCtx = null;
+    function playChime() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(659.25, now); // E5
+      gainNode.gain.setValueAtTime(0.05, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 1.5);
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(now + 1.6);
+    }
+
+    // CANVAS DRAWING CODE
+    const canvas = document.getElementById('cardCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Setting constant high-resolution size for canvas export
+    canvas.width = 800;
+    canvas.height = 600;
+
+    // Load templates in memory
+    const images = {
+      hero: new Image(),
+      buddha: new Image()
+    };
+    
+    images.hero.src = 'assets/hero.png';
+    images.buddha.src = 'assets/buddha.png';
+
+    // Redraw once image files loaded
+    let imagesLoaded = 0;
+    Object.keys(images).forEach(key => {
+      images[key].onload = () => {
+        imagesLoaded++;
+        if (imagesLoaded === 2) {
+          drawCard();
+        }
+      };
+      // fallback in case of errors
+      images[key].onerror = () => {
+        drawCard();
+      };
+    });
+
+    // Template selection state
+    let activeTemplate = 'hero';
+
+    const defaultWishes = {
+      1: "ත්‍රිවිධ රත්නයේ ආශිර්වාදයෙන් සියලු සිත් සැනසේවා! ඔබ සැමට සාමය, කරුණාව පිරි පින්බර වෙසක් මංගල්‍යයක් වේවා!",
+      2: "බුදුරජාණන් වහන්සේ වදාළ ශ්‍රී සද්ධර්මයේ සිසිලසින් මුළු විශ්වයම සැනසේවා! ඔබ සැමට පින්බර වෙසක් උත්සවයක් වේවා!",
+      3: "May the supreme wisdom and boundless compassion of the Gautama Buddha guide you towards lasting peace, happiness, and supreme mental freedom. Blessed Vesak!"
+    };
+
+    function setQuickWish(id) {
+      document.getElementById('cardWish').value = defaultWishes[id];
+      drawCard();
+      playChime();
+    }
+
+    function selectTemplate(tmpl) {
+      activeTemplate = tmpl;
+      const templates = ['hero', 'buddha', 'lotus'];
+      templates.forEach(t => {
+        const btn = document.getElementById(`tmplBtn-${t}`);
+        if (t === tmpl) {
+          btn.className = "flex flex-col items-center p-2 rounded-xl border transition-all duration-200 bg-spiritual-gold/10 border-spiritual-gold text-spiritual-gold";
+        } else {
+          btn.className = "flex flex-col items-center p-2 rounded-xl border transition-all duration-200 bg-white/5 border-white/10 text-slate-400 hover:border-spiritual-gold/40 hover:text-spiritual-gold";
+        }
+      });
+      drawCard();
+      playChime();
+    }
+
+    // Wrap text into multiple lines for Canvas
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      const lines = [];
+
+      for (let n = 0; n < words.length; n++) {
+        let testLine = line + words[n] + ' ';
+        let metrics = context.measureText(testLine);
+        let testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          lines.push(line);
+          line = words[n] + ' ';
+        } else {
+          line = testLine;
+        }
+      }
+      lines.push(line);
+      
+      // Draw centered
+      lines.forEach((lineText, idx) => {
+        context.fillText(lineText.trim(), x, y + (idx * lineHeight));
+      });
+      
+      return lines.length;
+    }
+
+    // MAIN DRAW FUNCTION
+    function drawCard() {
+      // 1. Draw Background
+      if (activeTemplate === 'hero' && images.hero.complete && images.hero.naturalWidth !== 0) {
+        ctx.drawImage(images.hero, 0, 0, canvas.width, canvas.height);
+      } else if (activeTemplate === 'buddha' && images.buddha.complete && images.buddha.naturalWidth !== 0) {
+        ctx.drawImage(images.buddha, 0, 0, canvas.width, canvas.height);
+      } else {
+        // Fallback or Lotus template: Pure spiritual gradient
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        grad.addColorStop(0, '#0d0b24');
+        grad.addColorStop(0.5, '#1e1136');
+        grad.addColorStop(1, '#050612');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw centered lotus vectors
+        ctx.save();
+        ctx.translate(canvas.width/2, canvas.height/3);
+        ctx.fillStyle = 'rgba(255, 141, 161, 0.15)';
+        for (let i = 0; i < 8; i++) {
+          ctx.beginPath();
+          ctx.ellipse(0, 0, 80, 160, (i * Math.PI / 4), 0, 2 * Math.PI);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      // Dark Overlay vignette to make texts highly readable
+      ctx.fillStyle = 'rgba(5, 6, 18, 0.65)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // 2. Draw Premium Border
+      ctx.strokeStyle = '#D4AF37'; // Gold
+      ctx.lineWidth = 10;
+      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+      
+      // Thin secondary border
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(32, 32, canvas.width - 64, canvas.height - 64);
+
+      // Draw ornamental corners (Traditional designs)
+      ctx.fillStyle = '#D4AF37';
+      const cSize = 25;
+      // Top-Left
+      ctx.fillRect(32, 32, cSize, 6); ctx.fillRect(32, 32, 6, cSize);
+      // Top-Right
+      ctx.fillRect(canvas.width - 32 - cSize, 32, cSize, 6); ctx.fillRect(canvas.width - 38, 32, 6, cSize);
+      // Bottom-Left
+      ctx.fillRect(32, canvas.height - 38, cSize, 6); ctx.fillRect(32, canvas.height - 32 - cSize, 6, cSize);
+      // Bottom-Right
+      ctx.fillRect(canvas.width - 32 - cSize, canvas.height - 38, cSize, 6); ctx.fillRect(canvas.width - 38, canvas.height - 32 - cSize, 6, cSize);
+
+      // 3. Draw Header Title
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFE89E';
+      ctx.font = 'bold 36px "Abhaya Libre", serif';
+      ctx.shadowColor = 'rgba(243, 156, 18, 0.8)';
+      ctx.shadowBlur = 15;
+      ctx.fillText('ඔබ සැමට පින්බර වෙසක් මංගල්‍යයක් වේවා!', canvas.width / 2, 95);
+      
+      ctx.shadowBlur = 0; // reset shadow
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.font = 'bold 13px "Outfit", sans-serif';
+      ctx.fillText('• BLESSED VESAK FESTIVAL GREETINGS •', canvas.width / 2, 130);
+
+      // 4. Draw Custom Wish
+      const userWish = document.getElementById('cardWish').value.trim() || defaultWishes[1];
+      const textColor = document.getElementById('cardTextColor').value;
+      const fontSize = document.getElementById('cardFontSize').value;
+
+      ctx.fillStyle = textColor;
+      ctx.font = `500 ${fontSize}px "Abhaya Libre", serif`;
+      
+      // Center vertical alignment
+      const wrapWidth = 600;
+      const lineHeight = parseInt(fontSize) + 8;
+      
+      // Dynamic rendering with wrapping
+      wrapText(ctx, userWish, canvas.width / 2, 230, wrapWidth, lineHeight);
+
+      // 5. Draw Sender Name
+      const senderText = document.getElementById('cardSender').value.trim() || 'Sunil, Nayanathara & Family';
+      
+      // Draw Divider line
+      ctx.strokeStyle = 'rgba(212, 175, 55, 0.3)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2 - 100, canvas.height - 130);
+      ctx.lineTo(canvas.width / 2 + 100, canvas.height - 130);
+      ctx.stroke();
+
+      ctx.fillStyle = '#FFE89E';
+      ctx.font = 'italic 16px "Outfit", sans-serif';
+      ctx.fillText('With loving metta from,', canvas.width / 2, canvas.height - 95);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 24px "Abhaya Libre", serif';
+      ctx.fillText(senderText, canvas.width / 2, canvas.height - 65);
+    }
+
+    // Listen to changes on fields to automatically draw canvas in real time
+    document.getElementById('cardWish').addEventListener('input', drawCard);
+    document.getElementById('cardSender').addEventListener('input', drawCard);
+
+    // Initial setup with default values
+    window.addEventListener('load', () => {
+      document.getElementById('cardWish').value = defaultWishes[1];
+      // Delay slightly to ensure fonts are fully loaded by browser before first canvas render
+      setTimeout(drawCard, 800);
+    });
+
+    // PNG Download Action
+    function downloadGreetingCard() {
+      // Refresh canvas draw to guarantee final layout
+      drawCard();
+      
+      const link = document.createElement('a');
+      link.download = 'vesak_greeting_card.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      
+      // Click audio trigger
+      playChime();
+    }
+  </script>
+</body>
+</html>

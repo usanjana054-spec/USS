@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>වෙසක් පහන් උයන | Virtual Lantern Garden</title>
+  <meta name="description" content="Light traditional Vesak lanterns, clay lamps, or lotus candles and release them with your silent wishes into the starlit sky. Immersive spiritual experience.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@500;700;800&family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sinhala: ['"Abhaya Libre"', 'serif'],
+            cinzel: ['"Cinzel"', 'serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            spiritual: {
+              deep: '#050612',
+              violet: '#0d0b24',
+              gold: '#D4AF37',
+              amber: '#F39C12',
+              pink: '#FF8DA1',
+              glow: '#FFE89E',
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 20s linear infinite',
+            'pulse-slow': 'pulseGlow 3s ease-in-out infinite',
+            'float-moon': 'floatMoon 10s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @keyframes floatMoon {
+      0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 15px rgba(254, 224, 130, 0.4)); }
+      50% { transform: translateY(-8px) scale(1.02); filter: drop-shadow(0 0 30px rgba(254, 224, 130, 0.7)); }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+    
+    .glass-card {
+      background: rgba(13, 11, 36, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+    }
+    .glass-card:hover {
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    
+    /* Elegant dynamic rising lantern styles */
+    .rising-lantern {
+      position: absolute;
+      bottom: -150px;
+      pointer-events: none;
+      z-index: 10;
+      transition: transform 0.2s linear, opacity 1s ease-out;
+      will-change: transform, opacity;
+      display: flex;
+      flex-col: column;
+      align-items: center;
+    }
+    
+    .lantern-glow-gold {
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)) drop-shadow(0 0 30px rgba(243, 156, 18, 0.5));
+    }
+    .lantern-glow-pink {
+      filter: drop-shadow(0 0 15px rgba(255, 141, 161, 0.8)) drop-shadow(0 0 30px rgba(255, 141, 161, 0.5));
+    }
+    .lantern-glow-blue {
+      filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));
+    }
+  </style>
+</head>
+<body class="bg-spiritual-deep text-slate-200 font-outfit overflow-x-hidden min-h-screen relative flex flex-col justify-between">
+
+  <!-- Interconnected Interactive Starry Garden Workspace -->
+  <div id="skyWorkspace" class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <!-- Starfield will be injected here -->
+  </div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 w-full px-4 lg:px-8 py-4 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-spiritual-violet/40 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/30">
+      
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-spiritual-gold/10 flex items-center justify-center border border-spiritual-gold/30 group-hover:border-spiritual-gold/60 transition-all duration-300">
+          <svg class="w-6 h-6 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="font-cinzel font-bold text-lg tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-spiritual-gold to-yellow-400 group-hover:to-spiritual-pink transition-all duration-300">VESAK 2026</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Home</a>
+        <a href="significance.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Significance</a>
+        <a href="lanterns.html" class="px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-gold/20">Virtual Garden</a>
+        <a href="cards.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Card Creator</a>
+        <a href="music.html" class="px-4 py-2 rounded-full text-sm font-medium hover:text-spiritual-gold text-slate-300 transition-all duration-300 hover:bg-white/5">Serenity Chants</a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-3">
+        <button id="bgSoundBtn" onclick="toggleAmbientChimes()" class="p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-spiritual-gold/40 text-spiritual-gold transition-all duration-300" title="Toggle Wind Chimes Ambient">
+          <i data-lucide="music-4" class="w-5 h-5"></i>
+        </button>
+        <a href="cards.html" class="px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-spiritual-gold to-spiritual-amber hover:from-spiritual-amber hover:to-spiritual-gold text-spiritual-deep shadow-md shadow-spiritual-amber/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">Wish Card</a>
+      </div>
+
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-spiritual-gold hover:bg-white/5 transition-all duration-300">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+    </nav>
+    
+    <div id="mobileMenu" class="hidden md:hidden mt-3 px-4 py-6 rounded-3xl glass-card flex flex-col gap-3 animate-fade-in z-50 relative">
+      <a href="index.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="home" class="w-5 h-5 text-spiritual-gold"></i> Home
+      </a>
+      <a href="significance.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="book-open" class="w-5 h-5 text-spiritual-gold"></i> Significance of Vesak
+      </a>
+      <a href="lanterns.html" class="px-4 py-3 rounded-xl bg-spiritual-gold text-spiritual-deep font-bold text-center">Virtual Lantern Garden</a>
+      <a href="cards.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="images" class="w-5 h-5 text-spiritual-gold"></i> Create Greeting Cards
+      </a>
+      <a href="music.html" class="px-4 py-3 rounded-xl hover:bg-white/5 text-slate-300 hover:text-spiritual-gold transition-all duration-300 flex items-center gap-3">
+        <i data-lucide="music" class="w-5 h-5 text-spiritual-gold"></i> Serenity Audio Chants
+      </a>
+    </div>
+  </header>
+
+  <!-- VIRTUAL LANTERNS LIGHTING MAIN CONTROLS -->
+  <main class="w-full flex-grow z-10 px-4 lg:px-8 py-6 max-w-7xl mx-auto flex flex-col justify-between">
+    
+    <!-- Luminous Full Moon Header Element -->
+    <div class="relative w-full flex flex-col items-center justify-center text-center mt-2 mb-10 pointer-events-none select-none">
+      <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-amber-100/90 animate-float-moon z-10"></div>
+      <div class="absolute w-44 h-44 rounded-full bg-yellow-200/10 blur-2xl z-0 animate-pulse-slow"></div>
+      <h1 class="font-sinhala font-extrabold text-2xl sm:text-3xl text-white tracking-wide text-glow-gold mt-4 z-10">
+        වෙසක් පහන් උද්‍යානය — The Virtual Lantern Garden
+      </h1>
+      <p class="text-[11px] text-slate-400 mt-1 max-w-md font-outfit z-10">
+        Write a blessing, choose your light source, and release it into the celestial starry night.
+      </p>
+    </div>
+
+    <!-- MAIN GRID LAYOUT -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-6">
+      
+      <!-- LEFT COLUMN: CONTROLS & WISH FORM -->
+      <div class="lg:col-span-4 w-full flex flex-col gap-6 z-20">
+        
+        <div class="glass-card p-6 rounded-3xl border border-spiritual-gold/20 shadow-2xl relative overflow-hidden">
+          
+          <!-- Decorative subtle light -->
+          <div class="absolute -top-12 -right-12 w-24 h-24 rounded-full bg-spiritual-gold/5 blur-xl pointer-events-none"></div>
+
+          <h2 class="font-sinhala font-bold text-xl text-spiritual-glow flex items-center gap-2 mb-4">
+            <i data-lucide="flame" class="w-5 h-5 text-spiritual-gold"></i>
+            <span>පහනක් හෝ කූඩුවක් දල්වමු</span>
+          </h2>
+
+          <!-- Wish text inputs -->
+          <div class="flex flex-col gap-4">
+            
+            <!-- Wish/Blessing Field -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Your Wish / Blessing</label>
+              <textarea id="wishText" rows="3" maxlength="120" placeholder="e.g. Wishing infinite happiness, perfect health, and deep mental peace for everyone in the world..." class="w-full px-4 py-3 rounded-2xl bg-spiritual-deep/80 border border-white/10 hover:border-spiritual-gold/40 focus:border-spiritual-gold text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-spiritual-gold resize-none transition-all duration-300"></textarea>
+            </div>
+
+            <!-- Sender Name -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Your Name / Initials</label>
+              <input type="text" id="senderName" max="30" placeholder="e.g. Priyantha / Pathum & Family" class="w-full px-4 py-2 rounded-2xl bg-spiritual-deep/80 border border-white/10 hover:border-spiritual-gold/40 focus:border-spiritual-gold text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-spiritual-gold transition-all duration-300">
+            </div>
+
+            <!-- Light Source Selection -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Choose Light Source</label>
+              <div class="grid grid-cols-3 gap-2">
+                
+                <!-- Option 1: Vesak Kuduwa -->
+                <button onclick="selectLightType('kuduwa')" id="typeBtn-kuduwa" class="flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-300 bg-spiritual-gold/10 border-spiritual-gold text-spiritual-gold shadow-md">
+                  <i data-lucide="sparkles" class="w-5 h-5 mb-1.5"></i>
+                  <span class="text-[10px] font-bold">Vesak Kudu</span>
+                </button>
+
+                <!-- Option 2: Clay Lamp -->
+                <button onclick="selectLightType('lamp')" id="typeBtn-lamp" class="flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-300 bg-white/5 border-white/10 text-slate-400 hover:border-spiritual-gold/40 hover:text-spiritual-gold">
+                  <i data-lucide="flame" class="w-5 h-5 mb-1.5"></i>
+                  <span class="text-[10px] font-bold">Clay Lamp</span>
+                </button>
+
+                <!-- Option 3: Lotus Lamp -->
+                <button onclick="selectLightType('lotus')" id="typeBtn-lotus" class="flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-300 bg-white/5 border-white/10 text-slate-400 hover:border-spiritual-gold/40 hover:text-spiritual-gold">
+                  <i data-lucide="flower" class="w-5 h-5 mb-1.5"></i>
+                  <span class="text-[10px] font-bold">Lotus Candle</span>
+                </button>
+
+              </div>
+            </div>
+
+            <!-- Color Palette Choice -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-cinzel">Lantern Theme Tone</label>
+              <div class="flex items-center gap-3">
+                <button onclick="selectColorTone('gold')" id="colorBtn-gold" class="w-7 h-7 rounded-full bg-gradient-to-r from-spiritual-gold to-spiritual-amber ring-2 ring-white border border-spiritual-deep shadow-md transition-all duration-200 transform scale-110"></button>
+                <button onclick="selectColorTone('pink')" id="colorBtn-pink" class="w-7 h-7 rounded-full bg-gradient-to-r from-pink-400 to-spiritual-pink ring-offset-2 ring-offset-spiritual-deep border border-spiritual-deep shadow-md transition-all duration-200"></button>
+                <button onclick="selectColorTone('blue')" id="colorBtn-blue" class="w-7 h-7 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 ring-offset-2 ring-offset-spiritual-deep border border-spiritual-deep shadow-md transition-all duration-200"></button>
+              </div>
+            </div>
+
+            <!-- Light & Release Button -->
+            <button onclick="lightAndRelease()" class="w-full py-4 mt-2 rounded-2xl font-bold text-spiritual-deep bg-gradient-to-r from-spiritual-gold to-yellow-400 hover:from-yellow-400 hover:to-spiritual-gold shadow-lg shadow-spiritual-gold/25 hover:shadow-spiritual-gold/40 transform hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 flex items-center justify-center gap-2 group">
+              <i data-lucide="send" class="w-4 h-4 text-spiritual-deep group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"></i>
+              <span>Light & Release into Sky</span>
+            </button>
+
+          </div>
+
+        </div>
+        
+        <!-- Helpful tip widget -->
+        <div class="glass-card px-5 py-4 rounded-2xl border border-white/5 text-[11px] text-slate-400 flex items-start gap-3">
+          <i data-lucide="info" class="w-4 h-4 text-spiritual-gold flex-shrink-0 mt-0.5 animate-bounce"></i>
+          <div>
+            <span class="font-bold text-white block mb-0.5">Mindful Tip</span>
+            As you click release, take a slow deep breath, focus your mind on loving-kindness, and mentally wish well-being for all physical beings around the universe.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: THE LIVE FLOATING SKY CONTAINER -->
+      <div class="lg:col-span-8 w-full h-[650px] relative rounded-3xl border border-white/5 bg-spiritual-violet/20 backdrop-blur-sm overflow-hidden shadow-2xl">
+        <!-- Overlay vignette gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-spiritual-deep/20 to-spiritual-deep pointer-events-none z-20"></div>
+        
+        <!-- Subtle guidance notice -->
+        <div class="absolute bottom-6 left-6 right-6 text-center pointer-events-none z-30 opacity-70">
+          <span class="text-xs text-slate-500 tracking-wider uppercase font-cinzel">Garden Sky View Area</span>
+        </div>
+
+        <!-- Rendered Visual Area -->
+        <div id="activeSky" class="absolute inset-0 z-10"></div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-spiritual-deep/80 backdrop-blur-md border-t border-white/10 py-12 px-6 lg:px-12 z-20 text-slate-400 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div class="flex flex-col gap-4 text-center md:text-left">
+        <div class="flex items-center gap-3 justify-center md:justify-start">
+          <svg class="w-7 h-7 text-spiritual-gold animate-spin-slow" viewBox="0 0 100 100" fill="currentColor">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="4"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="4"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="22" x2="78" y2="78" stroke="currentColor" stroke-width="4"/>
+            <line x1="22" y1="78" x2="78" y2="22" stroke="currentColor" stroke-width="4"/>
+            <circle cx="50" cy="50" r="4" fill="currentColor"/>
+          </svg>
+          <span class="font-cinzel font-bold text-base tracking-widest text-white">VESAK CELEBRATIONS 2026</span>
+        </div>
+        <p class="font-sinhala text-sm leading-relaxed text-slate-400 max-w-sm mx-auto md:mx-0">
+          ත්‍රිවිධ මංගල්‍යයේ උදාර පණිවිඩය මුළු විශ්වය පුරාම සාමය, කරුණාව සහ දයාව පතුරුවා හරීවා! ඔබ සැමට ධර්මයේ සිසිලස පිරුණු වෙසක් මංගල්‍යයක් වේවා.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-center gap-4">
+        <h4 class="font-cinzel text-xs font-bold tracking-widest text-white uppercase">Menu Links</h4>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 max-w-xs">
+          <a href="index.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Home</a>
+          <a href="significance.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Significance</a>
+          <a href="lanterns.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Lantern Garden</a>
+          <a href="cards.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Card Studio</a>
+          <a href="music.html" class="text-sm hover:text-spiritual-gold transition-colors duration-300">Devotional Chants</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 items-center md:items-end text-center md:text-right justify-center">
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-slate-400">Purely coded with devotion for the community</span>
+          <div class="w-8 h-8 rounded-full bg-spiritual-pink/10 border border-spiritual-pink/30 flex items-center justify-center text-spiritual-pink animate-pulse">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-500 font-light mt-1">
+          Designed using Tailwind HTML5 & JS. All rights reserved &copy; 2026 Vesak Festival.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT FOR DYNAMIC INTERACTIVE FLIGHTS -->
+  <script>
+    lucide.createIcons();
+
+    // Toggle Mobile Navigation Drawer
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Starfield Generator
+    function generateStars() {
+      const workspace = document.getElementById('skyWorkspace');
+      const count = 75;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 0.5;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animation = `twinkle ${Math.random() * 4 + 2}s ease-in-out infinite`;
+        star.style.animationDelay = Math.random() * 3 + 's';
+        workspace.appendChild(star);
+      }
+    }
+    window.addEventListener('load', generateStars);
+
+    // Audio Engine: Web Audio API for Chimes
+    let audioCtx = null;
+    let chimesInterval = null;
+    let ambientPlaying = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Play synthesized high bell chime
+    function playLanternBell() {
+      initAudio();
+      const now = audioCtx.currentTime;
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      // High crystalline harmony
+      osc1.frequency.setValueAtTime(880, now); // A5
+      osc2.frequency.setValueAtTime(1046.50, now); // C6
+
+      osc1.type = 'sine';
+      osc2.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0.08, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 2.5);
+
+      osc1.connect(gainNode);
+      osc2.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc1.start();
+      osc2.start();
+      osc1.stop(now + 2.6);
+      osc2.stop(now + 2.6);
+    }
+
+    // Soft chime for ambient loop
+    function playAmbientChime() {
+      if (!ambientPlaying) return;
+      initAudio();
+      const frequencies = [523.25, 587.33, 659.25, 783.99, 880.00]; // Pentatonic scale (C5, D5, E5, G5, A5)
+      const randomFreq = frequencies[Math.floor(Math.random() * frequencies.length)];
+      
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(randomFreq, now);
+      
+      gainNode.gain.setValueAtTime(0, now);
+      gainNode.gain.linearRampToValueAtTime(0.02, now + 0.1);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 3);
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(now + 3.1);
+    }
+
+    function toggleAmbientChimes() {
+      const btn = document.getElementById('bgSoundBtn');
+      if (!ambientPlaying) {
+        initAudio();
+        ambientPlaying = true;
+        btn.classList.add('bg-spiritual-gold/20', 'border-spiritual-gold');
+        btn.querySelector('i').setAttribute('data-lucide', 'music');
+        lucide.createIcons();
+        
+        // Spawn chimes periodically
+        chimesInterval = setInterval(playAmbientChime, 1800);
+        playAmbientChime();
+      } else {
+        ambientPlaying = false;
+        btn.classList.remove('bg-spiritual-gold/20', 'border-spiritual-gold');
+        btn.querySelector('i').setAttribute('data-lucide', 'music-4');
+        lucide.createIcons();
+        
+        clearInterval(chimesInterval);
+      }
+    }
+
+    // Form Configuration state
+    let selectedLightType = 'kuduwa';
+    let selectedColorTone = 'gold';
+
+    function selectLightType(type) {
+      const types = ['kuduwa', 'lamp', 'lotus'];
+      selectedLightType = type;
+      
+      types.forEach(t => {
+        const btn = document.getElementById(`typeBtn-${t}`);
+        if (t === type) {
+          btn.className = "flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-300 bg-spiritual-gold/10 border-spiritual-gold text-spiritual-gold shadow-md";
+        } else {
+          btn.className = "flex flex-col items-center justify-center p-3 rounded-2xl border transition-all duration-300 bg-white/5 border-white/10 text-slate-400 hover:border-spiritual-gold/40 hover:text-spiritual-gold";
+        }
+      });
+      playSmallClick();
+    }
+
+    function selectColorTone(color) {
+      const colors = ['gold', 'pink', 'blue'];
+      selectedColorTone = color;
+      
+      colors.forEach(c => {
+        const btn = document.getElementById(`colorBtn-${c}`);
+        if (c === color) {
+          btn.classList.add('scale-110', 'ring-2', 'ring-white');
+          btn.classList.remove('ring-offset-2', 'ring-offset-spiritual-deep');
+        } else {
+          btn.classList.remove('scale-110', 'ring-2', 'ring-white');
+          btn.classList.add('ring-offset-2', 'ring-offset-spiritual-deep');
+        }
+      });
+      playSmallClick();
+    }
+
+    function playSmallClick() {
+      initAudio();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.frequency.setValueAtTime(600, now);
+      gainNode.gain.setValueAtTime(0.02, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(now + 0.12);
+    }
+
+    // LIST OF PRE-MADE BLURBS TO SIMULATE ALIVE GARDEN
+    const systemWishes = [
+      { text: "සියලු සත්වයෝ නිදුක් වෙත්වා, නීරෝගී වෙත්වා, සුවපත් වෙත්වා!", name: "අමරසේන" },
+      { text: "May all living beings be free from fear, free from suffering and find inner peace.", name: "S. Wickramasinghe" },
+      { text: "ඔබ සැමට සාමය, කරුණාව සපිරි පින්බර වෙසක් මංගල්‍යයක් වේවා!", name: "නිලන්ති සහ පවුල" },
+      { text: "May the light of Dhamma guide our nation through difficult times.", name: "Pathum Premachandra" },
+      { text: "ලෝකයේ සියලු සත්වයන්ට ධර්මයේ සිසිලස ලැබේවා!", name: "විශාඛා උපාසිකාව" },
+      { text: "May the blessings of Triple Gem shield everyone from darkness.", name: "Dhammika" }
+    ];
+
+    // LANTERNS FLIGHT ENGINE
+    const activeSky = document.getElementById('activeSky');
+
+    function createLantern(text, name, lightType, colorTone, isUser = false) {
+      const lanternContainer = document.createElement('div');
+      lanternContainer.className = 'rising-lantern';
+      
+      // Horizontal placement
+      const xOffset = Math.random() * 80 + 10; // Percent range: 10% to 90%
+      lanternContainer.style.left = `${xOffset}%`;
+      
+      // Tone styling mapping
+      let colorClass = 'lantern-glow-gold';
+      let flameColor = '#f39c12';
+      let primaryColor = '#FFE89E';
+      if (colorTone === 'pink') {
+        colorClass = 'lantern-glow-pink';
+        flameColor = '#FF8DA1';
+        primaryColor = '#ffb3c1';
+      } else if (colorTone === 'blue') {
+        colorClass = 'lantern-glow-blue';
+        flameColor = '#60a5fa';
+        primaryColor = '#93c5fd';
+      }
+
+      // Drawing customized SVGs based on lightType
+      let svgMarkup = '';
+      if (lightType === 'kuduwa') {
+        // Vesak Kudu structure
+        svgMarkup = `
+          <svg class="w-16 h-16 ${colorClass}" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Center Diamond body -->
+            <polygon points="50,15 75,50 50,85 25,50" fill="${flameColor}" opacity="0.85" stroke="#fff" stroke-width="2"/>
+            <!-- Inner light core -->
+            <circle cx="50" cy="50" r="10" fill="#fff"/>
+            <!-- Hanging decorative tassels (Rella) -->
+            <path d="M50,85 L50,100 M40,80 L40,95 M60,80 L60,95" stroke="${primaryColor}" stroke-dasharray="2,2" stroke-width="2.5"/>
+            <!-- Structural strings -->
+            <line x1="50" y1="0" x2="50" y2="15" stroke="${primaryColor}" stroke-width="1.5"/>
+          </svg>
+        `;
+      } else if (lightType === 'lamp') {
+        // Traditional Clay Lamp
+        svgMarkup = `
+          <svg class="w-16 h-16 ${colorClass}" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Flame -->
+            <path d="M50,10 C50,10 38,35 38,50 C38,62 43,68 50,68 C57,68 62,62 62,50 C62,35 50,10 50,10 Z" fill="#fff" opacity="0.95"/>
+            <path d="M50,20 C50,20 42,40 42,50 C42,58 45,62 50,62 C55,62 58,58 58,50 C58,40 50,20 50,20 Z" fill="${flameColor}"/>
+            <!-- Clay Base -->
+            <path d="M25,60 C25,60 15,80 50,80 C85,80 75,60 75,60 C75,60 78,72 50,72 C22,72 25,60 25,60 Z" fill="#b45309" stroke="#78350f" stroke-width="2"/>
+          </svg>
+        `;
+      } else {
+        // Lotus shape
+        svgMarkup = `
+          <svg class="w-16 h-16 ${colorClass}" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Center Candle Flame -->
+            <path d="M50,15 C50,15 45,30 45,40 C45,46 47,50 50,50 C53,50 55,46 55,40 C55,30 50,15 50,15 Z" fill="#fff" opacity="0.95"/>
+            <!-- Lotus Petals -->
+            <path d="M50,45 C35,45 25,58 25,65 C25,72 38,72 50,72 C62,72 75,72 75,65 C75,58 65,45 50,45 Z" fill="#ec4899" opacity="0.75"/>
+            <path d="M50,52 C42,52 35,60 35,66 C35,70 42,70 50,70 C58,70 65,70 65,66 C65,60 58,52 50,52 Z" fill="#f472b6" opacity="0.9"/>
+          </svg>
+        `;
+      }
+
+      // Add HTML content including text wish bubble
+      lanternContainer.innerHTML = `
+        ${svgMarkup}
+        <div class="mt-2 flex flex-col items-center">
+          <div class="px-3 py-1.5 rounded-xl bg-spiritual-deep/80 backdrop-blur-md border ${isUser ? 'border-spiritual-gold' : 'border-white/10'} text-center max-w-[150px] shadow-lg">
+            <p class="text-[9px] text-slate-300 font-light truncate leading-normal">${text}</p>
+            <p class="text-[8px] text-spiritual-gold font-bold mt-0.5 truncate">${name}</p>
+          </div>
+        </div>
+      `;
+
+      activeSky.appendChild(lanternContainer);
+
+      // Launch variables
+      let yPos = 650; // bottom baseline of container
+      const speed = Math.random() * 1 + 0.6; // speed rate
+      const wiggleAmt = Math.random() * 1.5 + 0.5; // wave wiggle size
+      let xTick = Math.random() * 10;
+      
+      const flightInterval = setInterval(() => {
+        yPos -= speed;
+        xTick += 0.02;
+        const currentXOffset = Math.sin(xTick) * wiggleAmt;
+        
+        lanternContainer.style.transform = `translateY(${yPos - 650}px) translateX(${currentXOffset}px)`;
+        
+        // As it approaches the full moon (near top y <= 150), it slowly fades out
+        if (yPos < 180) {
+          const opacity = Math.max(0, yPos / 180);
+          lanternContainer.style.opacity = opacity;
+        }
+
+        // Clean up when it leaves the sky container completely
+        if (yPos < -120) {
+          clearInterval(flightInterval);
+          lanternContainer.remove();
+        }
+      }, 16);
+    }
+
+    // Action function to light user's wish
+    function lightAndRelease() {
+      const wishText = document.getElementById('wishText');
+      const senderName = document.getElementById('senderName');
+      
+      let textVal = wishText.value.trim();
+      let nameVal = senderName.value.trim();
+      
+      if (!textVal) textVal = "May all beings find peace!";
+      if (!nameVal) nameVal = "Anonymous Devotee";
+
+      // Fire audio bell
+      playLanternBell();
+
+      // Launch
+      createLantern(textVal, nameVal, selectedLightType, selectedColorTone, true);
+
+      // Clear input and offer feedback
+      wishText.value = '';
+      senderName.value = '';
+      
+      // Temporary button state change to indicate success
+      const btn = document.querySelector('button[onclick="lightAndRelease()"]');
+      const origText = btn.innerHTML;
+      btn.innerHTML = 'Lantern Released! 🌟';
+      btn.classList.add('bg-emerald-500', 'text-white');
+      setTimeout(() => {
+        btn.innerHTML = origText;
+        btn.classList.remove('bg-emerald-500', 'text-white');
+      }, 2000);
+    }
+
+    // Automatically spawn random background wishes from surrounding community members
+    function autoSpawn() {
+      const randomWish = systemWishes[Math.floor(Math.random() * systemWishes.length)];
+      const types = ['kuduwa', 'lamp', 'lotus'];
+      const tones = ['gold', 'pink', 'blue'];
+      
+      const randType = types[Math.floor(Math.random() * types.length)];
+      const randTone = tones[Math.floor(Math.random() * tones.length)];
+      
+      createLantern(randomWish.text, randomWish.name, randType, randTone, false);
+    }
+
+    // Start auto spawn schedule (spawns new lantern every 4 seconds)
+    setInterval(autoSpawn, 4000);
+    
+    // Initial batch
+    setTimeout(autoSpawn, 500);
+    setTimeout(autoSpawn, 2000);
+  </script>
+</body>
+</html>
